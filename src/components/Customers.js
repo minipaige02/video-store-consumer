@@ -1,10 +1,12 @@
 import React from 'react';
+import Customer from './Customer';
 import PropTypes from 'prop-types';
 
 const Customers = (props) => {
 
   const listCustomers = props.customers.map((customerObj, i) => {
-      return <p key={i}>{customerObj.name}</p>
+    
+    return <Customer key={i} customerObj={customerObj} />
   })
 
   
@@ -15,5 +17,9 @@ const Customers = (props) => {
     </section>
   );
 };
+
+// Customers.propTypes = {
+
+// }
 
 export default Customers;
