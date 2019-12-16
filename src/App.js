@@ -23,6 +23,8 @@ class App extends Component {
       customers: [],
       errorCustomers: "",
       errorInventory: "",
+      currMovie: null,
+      currCustomer: null,
     }
   }
 
@@ -55,6 +57,9 @@ class App extends Component {
           <h1 className="App-title">VIDEO STORE!!!</h1>
         </header>
 
+    <h3>CurrMovie = {this.state.currMovie}</h3>
+    <h3>CurrCustomer = {this.state.currCustomer}</h3>
+    
         <Router className="App-intro">
               <Link to="/">Home</Link>
               <Link to="/search">Movie Search</Link>
