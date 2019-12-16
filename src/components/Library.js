@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Library = () => {
+
+const Library = (props) => {
   return(
     <section>
-
       Library HERE!!!!
     </section>
 
