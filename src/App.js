@@ -47,10 +47,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.customers);
-    console.log(this.state.inventory);
-    
-    
 
     return (
       <div className="App">
