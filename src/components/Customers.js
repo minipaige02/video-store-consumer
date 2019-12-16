@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Customers = () => {
+const Customers = (props) => {
   return(
     <section>
 
-      CUSTOMERS HERE!!!!
     </section>
 
   );

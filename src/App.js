@@ -5,6 +5,7 @@ import Customers from './components/Customers';
 import Search from './components/Search';
 import Library from './components/Library';
 import Home from './components/Home';
+import axios from 'axios';
 
 import {
   BrowserRouter as Router,
@@ -15,7 +16,42 @@ import {
 
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      inventory: [],
+      customers: [],
+      errorCustomers: "",
+      errorInventory: "",
+    }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:2999/movies')
+    .then(response => {
+      this.setState({ inventory: response.data });
+    })
+    .catch(error => {
+      this.setState({ errorInventory: error.message });
+    })
+
+    axios.get('http://localhost:2999/customers')
+    .then(response => {
+      this.setState({ customers: response.data });
+    })
+    .catch(error => {
+      this.setState({ errorCustomers: error.message });
+    })
+  }
+
+
+
   render() {
+    console.log(this.state.customers);
+    console.log(this.state.inventory);
+    
+    
+
     return (
       <div className="App">
         <header className="App-header">
@@ -28,19 +64,16 @@ class App extends Component {
               <Link to="/search">Movie Search</Link>
               <Link to="/library">Rental library</Link>
               <Link to="/customers">Customers</Link>
-       
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/search">
             <Search />
           </Route>
           <Route path="/library">
-            <Library />
+            <Library inventory={this.state.inventory}/>
           </Route>
           <Route path="/customers">
-            <Customers />
+            <Customers customers={this.state.customers}/>
           </Route>
           <Route path="/">
             <Home />
