@@ -42,9 +42,9 @@ class Search extends React.Component {
     
   return(
     <section>
-      <form onSubmit={this.sendAPI}>
-        <input type="text" value={this.state.searchTerm} placeholder="search term" onChange={this.getInput}/>
-        <input type="submit"/>
+      <form onSubmit={this.sendAPI} className="input-group input-group-lg">
+        <input type="text" value={this.state.searchTerm} placeholder="Search The Movie Database" onChange={this.getInput} class="form-control" />
+        <input class="input-group-text" type="submit"/>
       </form>
 
       {results}
