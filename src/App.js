@@ -26,6 +26,7 @@ class App extends Component {
       customers: [],
       errorCustomers: "",
       errorInventory: "",
+      error: "",
       currMovie: null,
       currCustomerId: null,
       currCustomerName: null,
@@ -122,7 +123,7 @@ class App extends Component {
             <p className="card-text">{this.showCurrCustomer()}</p>
           </div>
 
-          <Alert message="alert here" />
+          { this.state.error ? <Alert message={this.state.error} alertStyle="alert-danger"/> : null }
 
           <Switch>
             <Route path="/search">
