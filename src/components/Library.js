@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Library.css';
 
 
-const getMovies = (inventory, setCurrMovie) => {
+const getMovies = (inventory, setCurrMovieCallback) => {
   const sortedInventory = inventory.sort(function(a, b) {
     const titleA=a.title, titleB=b.title
     if (titleA < titleB ) {
@@ -20,12 +20,12 @@ const getMovies = (inventory, setCurrMovie) => {
     return <Movie 
       key={i}
       {...movie}
-      selectMovieCallback={setCurrMovie}
+      selectMovieCallback={() => setCurrMovieCallback(movie.id)}
     />
   });
 }
 
-const Library = ({ inventory }) => {
+const Library = ({ inventory, setCurrMovieCallback }) => {
   if (inventory.length > 0) {
     return (
       <section>
@@ -33,16 +33,16 @@ const Library = ({ inventory }) => {
         <table className="table table-striped">
           <thead className="table-header-row">
             <tr>
-              <th className=""></th>
+              <th ></th>
               <th ></th>
               <th >Title</th>
-              <th >Release Date</th>
+              <th className="w-25">Release Date</th>
               <th >Overview</th>
             </tr>
           </thead>
 
           <tbody>
-            {getMovies(inventory)}
+            {getMovies(inventory, setCurrMovieCallback)}
           </tbody>
         </table>
       </section>
@@ -58,6 +58,7 @@ const Library = ({ inventory }) => {
 
 Library.propTypes = {
   inventory: PropTypes.array,
+  setCurrMovieCallback: PropTypes.func.isRequired,
 }
 
 export default Library;

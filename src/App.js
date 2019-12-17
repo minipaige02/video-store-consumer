@@ -25,8 +25,7 @@ class App extends Component {
       customers: [],
       errorCustomers: "",
       errorInventory: "",
-      currMovieId: null,
-      currMovieName: null,
+      currMovie: null,
       currCustomerId: null,
       currCustomerName: null,
     }
@@ -63,13 +62,18 @@ class App extends Component {
     }
   }
 
-  setCurrMovie = () => {
-    console.log('Movie select button clicked')
+  setCurrMovie = (id) => {
+    const {inventory} = this.state;
+    const currMovie = inventory.find((movie) => {
+      return movie.id === id;
+    });
+
+    this.setState({currMovie,});
   }
 
   showCurrMovie = () => {
-    if (this.state.currMovieId) {
-      return (`Selected movie = #${this.state.currMovieId}, ${this.state.currMovieName}`);
+    if (this.state.currMovie) {
+      return (`Selected movie = ${this.state.currMovie.title}`);
     } else {
       return (`Please click 'Select' on a movie`);
     }
@@ -97,10 +101,9 @@ class App extends Component {
           </header>
 
           <div className="card bg-light text-dark">
-              <h5 className="card-title">Checking Out   (add checkout button later)</h5>
-              <p className="card-text">{this.showCurrMovie()}</p>
-              <p className="card-text">{this.showCurrCustomer()}</p>
-            
+            <h5 className="card-title">Checking Out   (add checkout button later)</h5>
+            <p className="card-text">{this.showCurrMovie()}</p>
+            <p className="card-text">{this.showCurrCustomer()}</p>
           </div>
 
           <Switch>
@@ -111,9 +114,7 @@ class App extends Component {
               <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie}/>
             </Route>
             <Route path="/customers">
-
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
-
             </Route>
             <Route path="/">
               <Home />

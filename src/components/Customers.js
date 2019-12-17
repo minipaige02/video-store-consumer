@@ -27,12 +27,8 @@ const Customers = (props) => {
         
         <tbody>
           {listCustomers}
-        </tbody>
-          
-        
+        </tbody> 
       </table>
-
-      
     </section>
   );
 };

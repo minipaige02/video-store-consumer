@@ -69,7 +69,7 @@ class Search extends React.Component {
 };
 
 Search.propTypes = {
-  
+  addToLibraryCallback: PropTypes.func.isRequired,
 }
 
 export default Search;
