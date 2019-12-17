@@ -12,7 +12,7 @@ const Customer = ({id, name, address, currCustomerCallback}) => {
 
   return(
     <section className="customer-container">
-      <Button value={id} name={name} onClick={selectCurrCustomer} className="btn btn-secondary">Select</Button>
+      <button value={id} name={name} onClick={selectCurrCustomer} className="btn btn-info">Select</button>
       <section>{id}</section>
       <section>{name}</section>
       <section>{address}</section>
