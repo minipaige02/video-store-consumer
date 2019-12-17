@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Customer.css';
 
+
 const Customer = ({id, name, address, currCustomerCallback}) => {
 
   const selectCurrCustomer = (event)=> {
@@ -11,7 +12,7 @@ const Customer = ({id, name, address, currCustomerCallback}) => {
 
   return(
     <section className="customer-container">
-      <input type="checkbox" value={id} name={name} onChange={selectCurrCustomer}/>
+      <Button value={id} name={name} onClick={selectCurrCustomer} className="btn btn-secondary">Select</Button>
       <section>{id}</section>
       <section>{name}</section>
       <section>{address}</section>
