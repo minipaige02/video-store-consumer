@@ -37,15 +37,15 @@ class Search extends React.Component {
       return <Movie 
         key={i}
         {...movie}
-        selectMovieCallback={this.props.addToLibraryCallback}
+        selectMovieCallback={() => this.props.addToLibraryCallback(movie)}
       />
     });
     
   return(
     <section>
-      <form onSubmit={this.sendAPI}>
-        <input type="text" value={this.state.searchTerm} placeholder="search term" onChange={this.getInput}/>
-        <input type="submit"/>
+      <form onSubmit={this.sendAPI} className="input-group input-group-lg">
+        <input type="text" value={this.state.searchTerm} placeholder="Search The Movie Database" onChange={this.getInput} className="form-control" />
+        <input className="input-group-text" type="submit"/>
       </form>
 
       <table className="table table-striped">
