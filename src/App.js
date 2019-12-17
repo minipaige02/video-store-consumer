@@ -59,36 +59,44 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">VIDEO STORE!!!</h1>
-        </header>
+      
+        <Router className="App-intro">
+          <nav class="navbar navbar-light">
+            <Link to="/">Home</Link>
+            <Link to="/search">Movie Search</Link>
+            <Link to="/library">Rental library</Link>
+            <Link to="/customers">Customers</Link>
+          </nav>
+
+
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
+          </header>
+
+          
+
 
   <h3>CurrMovieId = {this.state.currMovieId}  & currMovieName = {this.state.currMovieName}</h3>
   <h3>CurrCustomerId = {this.state.currCustomerId}  &  currCustomerName = { this.state.currCustomerName}</h3>
-    
-        <Router className="App-intro">
-              <Link to="/">Home</Link>
-              <Link to="/search">Movie Search</Link>
-              <Link to="/library">Rental library</Link>
-              <Link to="/customers">Customers</Link>
+      
 
-        <Switch>
-          <Route path="/search">
-            <Search />
-          </Route>
-          <Route path="/library">
-            <Library inventory={this.state.inventory}/>
-          </Route>
-          <Route path="/customers">
-            <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-    </Router>
 
+          <Switch>
+            <Route path="/search">
+              <Search />
+            </Route>
+            <Route path="/library">
+              <Library inventory={this.state.inventory}/>
+            </Route>
+            <Route path="/customers">
+              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
 
       </div>
     );
