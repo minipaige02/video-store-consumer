@@ -92,10 +92,9 @@ class App extends Component {
       })
     })
     .catch(error => {
-      console.log(`received error msg from rails: ${Object.keys(error.response)}`);
-      console.log(`${error.response.headers}`);
+      console.log(`PROCESING received error msg from rails: ${Object.entries(error.response)}`);
 
-      this.setState({ error: error })
+      // this.setState({ error: error })
     })
   }
 
