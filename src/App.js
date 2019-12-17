@@ -23,8 +23,10 @@ class App extends Component {
       customers: [],
       errorCustomers: "",
       errorInventory: "",
-      currMovie: null,
-      currCustomer: null,
+      currMovieId: null,
+      currMovieName: null,
+      currCustomerId: null,
+      currCustomerName: null,
     }
   }
 
@@ -46,6 +48,10 @@ class App extends Component {
     })
   }
 
+  setCurrCustomer = (currCustomerId, currCustomerName) => {
+    console.log(`App.js received ${currCustomerId} as new currCustomer`);
+    this.setState( {currCustomerId, currCustomerName} )
+  }
 
 
   render() {
@@ -57,8 +63,8 @@ class App extends Component {
           <h1 className="App-title">VIDEO STORE!!!</h1>
         </header>
 
-    <h3>CurrMovie = {this.state.currMovie}</h3>
-    <h3>CurrCustomer = {this.state.currCustomer}</h3>
+  <h3>CurrMovieId = {this.state.currMovieId}  & currMovieName = {this.state.currMovieName}</h3>
+  <h3>CurrCustomerId = {this.state.currCustomerId}  &  currCustomerName = { this.state.currCustomerName}</h3>
     
         <Router className="App-intro">
               <Link to="/">Home</Link>
@@ -74,7 +80,7 @@ class App extends Component {
             <Library inventory={this.state.inventory}/>
           </Route>
           <Route path="/customers">
-            <Customers customers={this.state.customers}/>
+            <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
           </Route>
           <Route path="/">
             <Home />

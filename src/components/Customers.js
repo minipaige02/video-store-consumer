@@ -6,7 +6,7 @@ const Customers = (props) => {
 
   const listCustomers = props.customers.map((customerObj, i) => {
     
-    return <Customer key={i} customerObj={customerObj} />
+    return <Customer key={i} {...customerObj} currCustomerCallback={props.currCustomerCallback}/>
   })
 
   
