@@ -18,6 +18,7 @@ import {
 class App extends Component {
   constructor() {
     super();
+
     this.state = {
       inventory: [],
       customers: [],
@@ -55,7 +56,6 @@ class App extends Component {
 
 
   render() {
-
     return (
       <div className="App">
         <header className="App-header">
