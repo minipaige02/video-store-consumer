@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Movie from './Movie'
 
 
 class Search extends React.Component {
@@ -32,23 +33,27 @@ class Search extends React.Component {
 
 
   render(){
-
-    console.log(this.state.searchTerm);
-    console.log(this.state.searchResults);
-    
+    const results = this.state.searchResults.map((movie, i) => {
+      return <Movie 
+        key={i}
+        {...movie}
+      />
+    });
     
   return(
-        <section>
-          <form onSubmit={this.sendAPI}>
-            <input type="text" value={this.state.searchTerm} placeholder="search term" onChange={this.getInput}/>
-            <input type="submit"/>
-          </form>
-        </section>
+    <section>
+      <form onSubmit={this.sendAPI}>
+        <input type="text" value={this.state.searchTerm} placeholder="search term" onChange={this.getInput}/>
+        <input type="submit"/>
+      </form>
 
-      
+      {results}
+    </section>
   )};
-   
-  
 };
+
+Search.propTypes = {
+  
+}
 
 export default Search;
