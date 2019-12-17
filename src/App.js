@@ -82,7 +82,6 @@ class App extends Component {
             <Link to="/customers">Customers</Link>
           </nav>
 
-
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
@@ -103,7 +102,9 @@ class App extends Component {
               <Library inventory={this.state.inventory}/>
             </Route>
             <Route path="/customers">
+
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
+
             </Route>
             <Route path="/">
               <Home />
