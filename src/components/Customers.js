@@ -6,7 +6,6 @@ import './Customers.css';
 const Customers = (props) => {
 
   const listCustomers = props.customers.map((customerObj, i) => {
-    
     return <Customer key={i} {...customerObj} currCustomerCallback={props.currCustomerCallback}/>
   })
 
@@ -15,10 +14,10 @@ const Customers = (props) => {
   return(
     <section>
 
-      <table class="table table-striped">
-        <thead class="table-header-row">
+      <table className="table table-striped">
+        <thead className="table-header-row">
           <tr>
-            <th>CurrCustomer</th>
+            <th>Checking Out</th>
             <th>Id</th>
             <th>Name</th>
             <th>Account Credit</th>

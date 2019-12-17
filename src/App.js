@@ -51,7 +51,6 @@ class App extends Component {
   }
 
   setCurrCustomer = (currCustomerId, currCustomerName) => {
-    console.log(`App.js received ${currCustomerId} as new currCustomer`);
     this.setState( {currCustomerId, currCustomerName} )
   }
 
