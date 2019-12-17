@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Customers from './components/Customers';
 import Search from './components/Search';
 import Library from './components/Library';
@@ -54,22 +55,46 @@ class App extends Component {
     this.setState( {currCustomerId, currCustomerName} )
   }
 
+  showCurrCustomer = () => {
+    if (this.state.currCustomerId) {
+      return (`Selected Customer = #${this.state.currCustomerId}, ${this.state.currCustomerName}`);
+    } else {
+      return (`Please click 'Select' on a customer`);
+    }
+  }
+
+  showCurrMovie = () => {
+    if (this.state.currMovieId) {
+      return (`Selected movie = #${this.state.currMovieId}, ${this.state.currMovieName}`);
+    } else {
+      return (`Please click 'Select' on a movie`);
+    }
+  }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">VIDEO STORE!!!</h1>
-        </header>
-        <h3>CurrMovieId = {this.state.currMovieId}  & currMovieName = {this.state.currMovieName}</h3>
-        <h3>CurrCustomerId = {this.state.currCustomerId}  &  currCustomerName = { this.state.currCustomerName}</h3>
-    
+      
         <Router className="App-intro">
-          <Link className="nav-link" to="/">Home</Link>
-          <Link className="nav-link" to="/search">Movie Search</Link>
-          <Link className="nav-link" to="/library">Rental Library</Link>
-          <Link className="nav-link" to="/customers">Customers</Link>
+          <nav class="navbar navbar-light">
+            <Link to="/">Home</Link>
+            <Link to="/search">Movie Search</Link>
+            <Link to="/library">Rental library</Link>
+            <Link to="/customers">Customers</Link>
+          </nav>
+
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
+          </header>
+
+          <div class="card bg-light text-dark">
+              <h5 class="card-title">Checking Out   (add checkout button later)</h5>
+              <p class="card-text">{this.showCurrMovie()}</p>
+              <p class="card-text">{this.showCurrCustomer()}</p>
+            
+          </div>
+
           <Switch>
             <Route path="/search">
               <Search />
@@ -78,13 +103,16 @@ class App extends Component {
               <Library inventory={this.state.inventory}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers}/>
+
+              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
+
             </Route>
             <Route path="/">
               <Home />
             </Route>
           </Switch>
         </Router>
+
       </div>
     );
   }
