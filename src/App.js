@@ -74,6 +74,10 @@ class App extends Component {
     }
   }
 
+  addToLibrary = () => {
+    console.log("I'm adding it to the library")
+  }
+
   render() {
     return (
       <div className="App">
@@ -100,7 +104,7 @@ class App extends Component {
 
           <Switch>
             <Route path="/search">
-              <Search />
+              <Search addToLibraryCallback={this.addToLibrary}/>
             </Route>
             <Route path="/library">
               <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie}/>
