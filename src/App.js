@@ -24,8 +24,6 @@ class App extends Component {
     this.state = {
       inventory: [],
       customers: [],
-      errorCustomers: "",
-      errorInventory: "",
       error: "",
       currMovie: null,
       currCustomerId: null,
@@ -39,7 +37,7 @@ class App extends Component {
       this.setState({ inventory: response.data });
     })
     .catch(error => {
-      this.setState({ errorInventory: error.message });
+      this.setState({ error: error.message });
     })
 
     axios.get('http://localhost:2999/customers')
@@ -47,7 +45,7 @@ class App extends Component {
       this.setState({ customers: response.data });
     })
     .catch(error => {
-      this.setState({ errorCustomers: error.message });
+      this.setState({ error: error.message });
     })
   }
 
@@ -90,13 +88,11 @@ class App extends Component {
         this.setState({ inventory: response.data });
       })
       .catch(error => {
-        this.setState({ errorInventory: error.message });
+        this.setState({ error: error.message });
       })
     })
     .catch(error => {
-      console.log(`PROCESING received error msg from rails: ${Object.entries(error)}`);
-
-      // this.setState({ error: error })
+      this.setState({ error: error.response.data.railsErrorMsg })
     })
   }
 
