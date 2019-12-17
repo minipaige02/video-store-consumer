@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Library.css';
 
 
-const getMovies = (inventory, setCurrMovieCallback) => {
+const getMovies = (inventory, setCurrMovie) => {
   const sortedInventory = inventory.sort(function(a, b) {
     const titleA=a.title, titleB=b.title
     if (titleA < titleB ) {
@@ -20,7 +20,7 @@ const getMovies = (inventory, setCurrMovieCallback) => {
     return <Movie 
       key={i}
       {...movie}
-      selectMovie={setCurrMovieCallback}
+      selectMovieCallback={setCurrMovie}
     />
   });
 }
