@@ -9,6 +9,17 @@ const Customers = (props) => {
     return <Customer key={i} {...customerObj} currCustomerCallback={props.currCustomerCallback}/>
   })
 
+  const noCustomers = (
+      <tr>
+        <th>No Customers</th>
+        <th>No Customers</th>
+        <th>No Customers</th>
+        <th>No Customers</th>
+        <th>No Customers</th>
+      </tr>
+    );
+
+
   
 
   return(
@@ -26,7 +37,7 @@ const Customers = (props) => {
         </thead>
         
         <tbody>
-          {listCustomers}
+          {props.customers.length === 0 ? noCustomers:listCustomers}
         </tbody>
           
         
