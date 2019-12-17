@@ -6,6 +6,7 @@ import Customers from './components/Customers';
 import Search from './components/Search';
 import Library from './components/Library';
 import Home from './components/Home';
+import Alert from './components/Alert';
 import axios from 'axios';
 
 import {
@@ -92,7 +93,7 @@ class App extends Component {
       })
     })
     .catch(error => {
-      console.log(`PROCESING received error msg from rails: ${Object.entries(error.response)}`);
+      console.log(`PROCESING received error msg from rails: ${Object.entries(error)}`);
 
       // this.setState({ error: error })
     })
@@ -120,6 +121,8 @@ class App extends Component {
             <p className="card-text">{this.showCurrMovie()}</p>
             <p className="card-text">{this.showCurrCustomer()}</p>
           </div>
+
+          <Alert message="alert here" />
 
           <Switch>
             <Route path="/search">
