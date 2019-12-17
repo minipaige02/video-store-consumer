@@ -14,9 +14,8 @@ const Customers = (props) => {
 
   return(
     <section>
-
-      <table class="table table-striped">
-        <thead class="table-header-row">
+      <table className="table table-striped">
+        <thead className="table-header-row">
           <tr>
             <th>CurrCustomer</th>
             <th>Id</th>
