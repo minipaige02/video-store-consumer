@@ -63,6 +63,10 @@ class App extends Component {
     }
   }
 
+  setCurrMovie = () => {
+    console.log('Movie select button clicked')
+  }
+
   showCurrMovie = () => {
     if (this.state.currMovieId) {
       return (`Selected movie = #${this.state.currMovieId}, ${this.state.currMovieName}`);
@@ -76,7 +80,7 @@ class App extends Component {
       <div className="App">
       
         <Router className="App-intro">
-          <nav class="navbar navbar-light">
+          <nav className="navbar navbar-light">
             <Link to="/">Home</Link>
             <Link to="/search">Movie Search</Link>
             <Link to="/library">Rental library</Link>
@@ -88,10 +92,10 @@ class App extends Component {
             <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
           </header>
 
-          <div class="card bg-light text-dark">
-              <h5 class="card-title">Checking Out   (add checkout button later)</h5>
-              <p class="card-text">{this.showCurrMovie()}</p>
-              <p class="card-text">{this.showCurrCustomer()}</p>
+          <div className="card bg-light text-dark">
+              <h5 className="card-title">Checking Out   (add checkout button later)</h5>
+              <p className="card-text">{this.showCurrMovie()}</p>
+              <p className="card-text">{this.showCurrCustomer()}</p>
             
           </div>
 
@@ -100,7 +104,7 @@ class App extends Component {
               <Search />
             </Route>
             <Route path="/library">
-              <Library inventory={this.state.inventory}/>
+              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie}/>
             </Route>
             <Route path="/customers">
 

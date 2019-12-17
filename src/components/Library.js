@@ -1,9 +1,10 @@
 import React from 'react';
 import Movie from './Movie'
 import PropTypes from 'prop-types';
+import './Library.css';
 
 
-const getMovies = (inventory) => {
+const getMovies = (inventory, setCurrMovieCallback) => {
   const sortedInventory = inventory.sort(function(a, b) {
     const titleA=a.title, titleB=b.title
     if (titleA < titleB ) {
@@ -19,18 +20,40 @@ const getMovies = (inventory) => {
     return <Movie 
       key={i}
       {...movie}
+      selectMovie={setCurrMovieCallback}
     />
   });
 }
 
 const Library = ({ inventory }) => {
+  if (inventory.length > 0) {
+    return (
+      <section>
+        <h3>Rental Library</h3>
+        <table className="table table-striped">
+          <thead className="table-header-row">
+            <tr>
+              <th className=""></th>
+              <th ></th>
+              <th >Title</th>
+              <th >Release Date</th>
+              <th >Overview</th>
+            </tr>
+          </thead>
 
-  return(
-    <section>
-      <h2>Library HERE!!!!</h2>
-      {inventory.length > 0 ? getMovies(inventory) : "No movies added to inventory."}
-    </section>
-  )
+          <tbody>
+            {getMovies(inventory)}
+          </tbody>
+        </table>
+      </section>
+    ) 
+  } else {
+    return (
+      <h4>No Movies Added to Library</h4>
+    )
+  }
+
+  
 };
 
 Library.propTypes = {
