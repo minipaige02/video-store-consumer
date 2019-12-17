@@ -1,22 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Customer.css';
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 
-const Customer = ({id, name, address, currCustomerCallback}) => {
+const Customer = ({id, name, registered_at, address, city, state, postal_code, phone, account_credit, movies_checked_out_count, currCustomerCallback}) => {
 
   const selectCurrCustomer = (event)=> {
     console.log(`selected customer ${event.target.value}, ${event.target.name}`);
     currCustomerCallback(event.target.value, event.target.name);
   }
 
+  const showDollars = (float) => {
+    return `$${float.toFixed(2)}`;
+  }
+
   return(
-    <section className="customer-container">
-      <button value={id} name={name} onClick={selectCurrCustomer} className="btn btn-info">Select</button>
-      <section>{id}</section>
-      <section>{name}</section>
-      <section>{address}</section>
-    </section>
+    <tr>
+      
+        <td><button value={id} name={name} onClick={selectCurrCustomer} className="btn btn-info">Select</button></td>
+        <td>{id}</td>
+        <td>{name}</td>
+        <td>{showDollars(account_credit)}</td>
+        <td>{movies_checked_out_count}</td>
+
+    </tr>
   );
 };
 

@@ -13,7 +13,26 @@ const Customers = (props) => {
 
   return(
     <section>
-      {listCustomers}
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">CurrCustomer</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Account Credit</th>
+            <th scope="col"># Movies checked out</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {listCustomers}
+        </tbody>
+          
+        
+      </table>
+
+      
     </section>
   );
 };
