@@ -5,7 +5,7 @@ import './Movie.css';
 const Movie = (props) => {
   return(
     <tr>
-      <td><button value={props.id} name={props.title} onClick={props.selectMovie} className="btn btn-info">Select</button></td>
+      <td><button value={props.id} name={props.title} onClick={props.selectMovieCallback} className="btn btn-info">Select</button></td>
       <td><img src={props.image_url} alt={props.title} /></td>
       <td>{props.title}</td>
       <td>{props.release_date}</td>

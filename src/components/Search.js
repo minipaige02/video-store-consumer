@@ -32,11 +32,12 @@ class Search extends React.Component {
   }
 
 
-  render(){
+  render(props){
     const results = this.state.searchResults.map((movie, i) => {
       return <Movie 
         key={i}
         {...movie}
+        selectMovieCallback={this.props.addToLibraryCallback}
       />
     });
     
