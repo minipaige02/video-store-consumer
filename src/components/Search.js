@@ -37,7 +37,7 @@ class Search extends React.Component {
       return <Movie 
         key={i}
         {...movie}
-        selectMovieCallback={this.props.addToLibraryCallback}
+        selectMovieCallback={() => this.props.addToLibraryCallback(movie)}
       />
     });
     
