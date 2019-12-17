@@ -32,6 +32,28 @@
   to { transform: rotate(360deg); }
 }
 
+.rental-select-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-content: center;
+}
+
+.select-movie {
+  grid-row: 1;
+  grid-column: 1/span 2;
+  display: flex;
+  justify-content: center;
+}
+
+.select-customer {
+  grid-row: 2;
+  grid-column: 1/span 2;
+}
+
+.select-customer-text, .select-movie-text {
+  font-weight: bolder;
+}
 
 .home-img {
   width: 90vw;
