@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Movie.css';
 
 const Movie = (props) => {
+  
   return(
     <tr>
       <td><button value={props.id} name={props.title} onClick={props.selectMovieCallback} className="btn btn-info">Select</button></td>
@@ -21,6 +22,7 @@ Movie.propTypes = {
   release_date: PropTypes.string,
   image_url: PropTypes.string,
   external_id: PropTypes.number.isRequired,
+  selectMovieCallback: PropTypes.func.isRequired,
 }
 
 export default Movie;
