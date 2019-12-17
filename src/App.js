@@ -98,6 +98,10 @@ class App extends Component {
     })
   }
 
+  createRental = () => {
+    console.log("I'm creating a rental!")
+  }
+
   render() {
     return (
       <div className="App">
@@ -116,9 +120,9 @@ class App extends Component {
           </header>
 
           <div className="card bg-light text-dark">
-            <h5 className="card-title">Checking Out   (add checkout button later)</h5>
             <p className="card-text">{this.showCurrMovie()}</p>
             <p className="card-text">{this.showCurrCustomer()}</p>
+            {this.state.currMovie && this.state.currCustomerName ? <button type="button" className="btn btn-success" onClick={this.createRental}>Create Rental</button> : ""}
           </div>
 
           <Switch>
