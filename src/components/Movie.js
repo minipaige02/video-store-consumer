@@ -6,7 +6,7 @@ const Movie = (props) => {
   
   return(
     <tr>
-      <td><button value={props.id} name={props.title} onClick={props.selectMovieCallback} className="btn btn-info">Select</button></td>
+      <td><button value={props.id} name={props.title} onClick={props.selectMovieCallback} className="btn btn-info">{props.buttonText}</button></td>
       <td><img src={props.image_url} alt={props.title} /></td>
       <td>{props.title}</td>
       <td>{props.release_date}</td>
@@ -23,6 +23,7 @@ Movie.propTypes = {
   image_url: PropTypes.string,
   external_id: PropTypes.number.isRequired,
   selectMovieCallback: PropTypes.func.isRequired,
+  buttonText: PropTypes.string.isRequired,
 }
 
 export default Movie;
