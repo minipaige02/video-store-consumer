@@ -56,33 +56,29 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">VIDEO STORE!!!</h1>
         </header>
-
-    <h3>CurrMovie = {this.state.currMovie}</h3>
-    <h3>CurrCustomer = {this.state.currCustomer}</h3>
+        <h3>CurrMovie = {this.state.currMovie}</h3>
+        <h3>CurrCustomer = {this.state.currCustomer}</h3>
     
         <Router className="App-intro">
-              <Link to="/">Home</Link>
-              <Link to="/search">Movie Search</Link>
-              <Link to="/library">Rental library</Link>
-              <Link to="/customers">Customers</Link>
-
-        <Switch>
-          <Route path="/search">
-            <Search />
-          </Route>
-          <Route path="/library">
-            <Library inventory={this.state.inventory}/>
-          </Route>
-          <Route path="/customers">
-            <Customers customers={this.state.customers}/>
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-    </Router>
-
-
+          <Link className="nav-link" to="/">Home</Link>
+          <Link className="nav-link" to="/search">Movie Search</Link>
+          <Link className="nav-link" to="/library">Rental Library</Link>
+          <Link className="nav-link" to="/customers">Customers</Link>
+          <Switch>
+            <Route path="/search">
+              <Search />
+            </Route>
+            <Route path="/library">
+              <Library inventory={this.state.inventory}/>
+            </Route>
+            <Route path="/customers">
+              <Customers customers={this.state.customers}/>
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </div>
     );
   }
