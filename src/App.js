@@ -89,7 +89,7 @@ class App extends Component {
             <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
           </header>
 
-          <div class="card bg-dark text-white">
+          <div class="card bg-light text-dark">
               <h5 class="card-title">Checking Out   (add checkout button later)</h5>
               <p class="card-text">{this.showCurrMovie()}</p>
               <p class="card-text">{this.showCurrCustomer()}</p>
