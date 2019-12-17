@@ -76,16 +76,19 @@ class App extends Component {
   }
 
   addToLibrary = (movieObj) => {
-    console.log("I'm adding it to the library", movieObj);
 
-    axios.post('http://localhost:2999/movies')
+    axios.post(`http://localhost:2999/movies`, movieObj)
     .then(response => {
-      console.log(response.data);
-      
-      // send new api call to backend to get latest data, OR, add it to state manually
+      // send new api call to backend to get latest data
+      axios.get('http://localhost:2999/movies')
+      .then(response => {
+        this.setState({ inventory: response.data });
+      })
+      .catch(error => {
+        this.setState({ errorInventory: error.message });
+      })
     })
     .catch(error => {
-      console.log(`ERROR!!! ${error.message}`);
       this.setState({ error: error.message })
     })
   }
