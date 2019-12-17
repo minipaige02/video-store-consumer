@@ -55,6 +55,21 @@ class App extends Component {
     this.setState( {currCustomerId, currCustomerName} )
   }
 
+  showCurrCustomer = () => {
+    if (this.state.currCustomerId) {
+      return (`Selected Customer = #${this.state.currCustomerId}, ${this.state.currCustomerName}`);
+    } else {
+      return (`Please click 'Select' on a customer`);
+    }
+  }
+
+  showCurrMovie = () => {
+    if (this.state.currMovieId) {
+      return (`Selected movie = #${this.state.currMovieId}, ${this.state.currMovieName}`);
+    } else {
+      return (`Please click 'Select' on a movie`);
+    }
+  }
 
   render() {
     return (
@@ -74,13 +89,12 @@ class App extends Component {
             <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
           </header>
 
-          
-
-
-  <h3>CurrMovieId = {this.state.currMovieId}  & currMovieName = {this.state.currMovieName}</h3>
-  <h3>CurrCustomerId = {this.state.currCustomerId}  &  currCustomerName = { this.state.currCustomerName}</h3>
-      
-
+          <div class="card bg-dark text-white">
+              <h5 class="card-title">Checking Out   (add checkout button later)</h5>
+              <p class="card-text">{this.showCurrMovie()}</p>
+              <p class="card-text">{this.showCurrCustomer()}</p>
+            
+          </div>
 
           <Switch>
             <Route path="/search">
