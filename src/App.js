@@ -62,6 +62,10 @@ class App extends Component {
     }
   }
 
+  setCurrMovie = () => {
+    console.log('Movie select button clicked')
+  }
+
   showCurrMovie = () => {
     if (this.state.currMovieId) {
       return (`Selected movie = #${this.state.currMovieId}, ${this.state.currMovieName}`);
@@ -99,7 +103,7 @@ class App extends Component {
               <Search />
             </Route>
             <Route path="/library">
-              <Library inventory={this.state.inventory}/>
+              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie}/>
             </Route>
             <Route path="/customers">
 

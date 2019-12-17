@@ -47,7 +47,22 @@ class Search extends React.Component {
         <input class="input-group-text" type="submit"/>
       </form>
 
-      {results}
+      <table className="table table-striped">
+        <thead className="table-header-row">
+          <tr>
+            <th className=""></th>
+            <th ></th>
+            <th >Title</th>
+            <th >Release Date</th>
+            <th >Overview</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {results}
+        </tbody>
+      </table>
+
     </section>
   )};
 };

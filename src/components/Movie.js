@@ -4,12 +4,13 @@ import './Movie.css';
 
 const Movie = (props) => {
   return(
-    <section className="movie-container">
-      <img src={props.image_url} alt={props.title} />
-      <p>{props.title}</p>
-      <p>{props.release_date}</p>
-      <p>{props.overview}</p>
-    </section>
+    <tr>
+      <td><button value={props.id} name={props.title} onClick={props.selectMovie} className="btn btn-info">Select</button></td>
+      <td><img src={props.image_url} alt={props.title} /></td>
+      <td>{props.title}</td>
+      <td>{props.release_date}</td>
+      <td>{props.overview}</td>
+    </tr>
   )
 };
 
