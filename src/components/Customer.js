@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Customer.css';
-import Jumbotron from 'react-bootstrap/Jumbotron'
-
 
 const Customer = ({id, name, registered_at, address, city, state, postal_code, phone, account_credit, movies_checked_out_count, currCustomerCallback}) => {
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Customer from './Customer';
 import PropTypes from 'prop-types';
+import './Customers.css';
 
 const Customers = (props) => {
 
@@ -15,13 +16,13 @@ const Customers = (props) => {
     <section>
 
       <table class="table table-striped">
-        <thead>
+        <thead class="table-header-row">
           <tr>
-            <th scope="col">CurrCustomer</th>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Account Credit</th>
-            <th scope="col"># Movies checked out</th>
+            <th>CurrCustomer</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Account Credit</th>
+            <th># Movies checked out</th>
           </tr>
         </thead>
         
