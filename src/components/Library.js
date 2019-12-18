@@ -61,7 +61,6 @@ class Library extends React.Component {
   }
 
   render() {
-    console.log(this.props.inventory);
     return this.displayMovies(this.props.inventory, this.props.setCurrMovieCallback);
   }
 }

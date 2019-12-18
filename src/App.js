@@ -93,7 +93,6 @@ class App extends Component {
   }
 
   eraseAlerts = () => {
-    console.log(`APP will erase alerts!!!!`);
     this.setState({ error: "", success: "" })
   }
 
