@@ -10,14 +10,14 @@ class Rentals extends React.Component {
     this.props.eraseAlertsCallback();
   }
 
-  showAllOverdues = (overdueRentals) => {
+  showAllOverdues = (overdueRentals, checkInCallback) => {
     return ( overdueRentals.map((entry, i) => {
       return (<tr key={i}>
       <td>{entry.title}</td>
       <td>{entry.name}</td>
       <td>{formatDate(entry.checkout_date)}</td>
       <td>{formatDate(entry.due_date)}</td>
-      <td><button onClick={()=>{}} className="btn btn-info">Check In</button></td>
+      <td><button onClick={() => {checkInCallback(entry.customer_id, entry.title)}} className="btn btn-info">Check In</button></td>
       </tr>)
     })
     );
@@ -39,7 +39,7 @@ class Rentals extends React.Component {
             </thead>
   
             <tbody>
-              {this.showAllOverdues(this.props.overdueRentals)}
+              {this.showAllOverdues(this.props.overdueRentals, this.props.checkInCallback)}
             </tbody>
           </table>
         </section>
