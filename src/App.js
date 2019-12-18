@@ -25,6 +25,7 @@ class App extends Component {
     this.state = {
       inventory: [],
       customers: [],
+      overdueRentals: [],
       error: "",
       success: "",
       currMovie: "",
@@ -44,6 +45,14 @@ class App extends Component {
     axios.get('http://localhost:2999/customers')
     .then(response => {
       this.setState({ customers: response.data });
+    })
+    .catch(error => {
+      this.setState({ error: error.message, success: "" });
+    })
+
+    axios.get('http://localhost:2999/rentals/overdue')
+    .then(response => {
+      this.setState({ overdueRentals: response.data });
     })
     .catch(error => {
       this.setState({ error: error.message, success: "" });
@@ -150,7 +159,7 @@ class App extends Component {
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/rentals">
-              <Rentals rentals={this.state.rentals} eraseAlertsCallback={this.eraseAlerts}/>
+              <Rentals overdueRentals={this.state.overdueRentals} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
               <Home eraseAlertsCallback={this.eraseAlerts}/>
