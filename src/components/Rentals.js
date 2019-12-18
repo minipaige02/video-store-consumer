@@ -10,14 +10,14 @@ class Rentals extends React.Component {
     this.props.eraseAlertsCallback();
   }
 
-  showAllOverdues = (overdueRentals) => {
+  showAllOverdues = (overdueRentals, checkInCallback) => {
     return ( overdueRentals.map((entry, i) => {
       return (<tr key={i}>
       <td>{entry.title}</td>
       <td>{entry.name}</td>
       <td>{formatDate(entry.checkout_date)}</td>
       <td>{formatDate(entry.due_date)}</td>
-      <td>check in button here???</td>
+      <td><button onClick={() => {checkInCallback(entry.customer_id, entry.title)}} className="btn btn-info">Check In</button></td>
       </tr>)
     })
     );
@@ -26,7 +26,7 @@ class Rentals extends React.Component {
   render() {
     return(
       <section>
-          <h3>Rental Library</h3>
+          <h3>All Active Rentals (red=overdue)</h3>
           <table className="table table-striped">
             <thead className="table-header-row">
               <tr>
@@ -34,12 +34,12 @@ class Rentals extends React.Component {
                 <th>Customer</th>
                 <th>Checkout Date</th>
                 <th>Due Date</th>
-                <th>Check in</th>
+                <th></th>
               </tr>
             </thead>
   
             <tbody>
-              {this.showAllOverdues(this.props.overdueRentals)}
+              {this.showAllOverdues(this.props.overdueRentals, this.props.checkInCallback)}
             </tbody>
           </table>
         </section>
