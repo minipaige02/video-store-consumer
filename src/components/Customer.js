@@ -3,7 +3,7 @@ import { formatDate } from './Helpers'
 import PropTypes from 'prop-types';
 
 
-const Customer = ({id, name, registered_at, address, city, state, postal_code, phone, account_credit, movies_checked_out_count, detailsDisplay, checkedOut, currCustomerCallback}) => {
+const Customer = ({id, name, registered_at, address, city, state, postal_code, phone, account_credit, movies_checked_out_count, detailsDisplay, checkedOut, currCustomerCallback, setCustDetails}) => {
 
   const showDollars = (float) => {
     return `$${float.toFixed(2)}`;
@@ -11,13 +11,18 @@ const Customer = ({id, name, registered_at, address, city, state, postal_code, p
   
   if (detailsDisplay) {
     const rentalsList = checkedOut.map((rental, i) => {
-    return <li key={i}><strong className="primary-color">{rental.title}</strong> | Checked-out: {formatDate(rental.checkout_date)} | Due: {formatDate(rental.due_date)}</li>
+      let dueDateClass = "";
+      if (formatDate(new Date()) > formatDate(rental.due_date)) {
+        dueDateClass = "overdue";
+      }
+
+      return <li key={i} className={dueDateClass}><strong className="primary-color">{rental.title}</strong> | Checked-out: {formatDate(rental.checkout_date)} | Due: {formatDate(rental.due_date)}</li>
     });
   
     return(
         <tr>
           <td><button value={id} name={name} onClick={()=>currCustomerCallback(id)} className="btn btn-info">Select</button></td>
-          <td><button value="details" name="details" className="btn btn-info">-</button></td>
+          <td><button value="details" name="details" className="btn btn-info" onClick={() => setCustDetails(id)}>-</button></td>
           <td>{id}</td>
           <td className="customer-name">{name}
             <ul>
@@ -35,8 +40,8 @@ const Customer = ({id, name, registered_at, address, city, state, postal_code, p
   } else {
     return(
       <tr>
-        <td><button value={id} name={name} onClick={()=>currCustomerCallback(id)} className="btn btn-info">Select</button></td>
-        <td><button value="details" name="details" className="btn btn-info">+</button></td>
+        <td><button value={id} name={name} onClick={() => currCustomerCallback(id)} className="btn btn-info">Select</button></td>
+        <td><button value="details" name="details" className="btn btn-info" onClick={() => setCustDetails(id)}>+</button></td>
         <td>{id}</td>
         <td className="customer-name">{name}</td>
         <td>{showDollars(account_credit)}</td>
@@ -58,7 +63,9 @@ Customer.propTypes = {
   postal_code: PropTypes.string,
   account_credit: PropTypes.number,
   movies_checked_out_count: PropTypes.number,
+  checkedOut: PropTypes.array,
   detailsDisplay: PropTypes.bool.isRequired,
+  setCustDetails: PropTypes.func,
   currCustomerCallback: PropTypes.func.isRequired,
 }
 
