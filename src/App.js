@@ -10,6 +10,7 @@ import Alert from './components/Alert';
 import Rentals from './components/Rentals';
 import axios from 'axios';
 
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -137,6 +138,7 @@ class App extends Component {
   }
 
   render() {
+    const iconUrl = "https://www.pngrepo.com/png/284024/170/vhs.png"
     
     return (
       <div className="App">
@@ -151,8 +153,9 @@ class App extends Component {
           </nav>
 
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
+            <img src={iconUrl} className="App-logo" alt="logo" />
+            <h1 className="App-title">Old-Timey Motion Picture Dispensary</h1>
+            <img src={iconUrl} className="App-logo" alt="logo" />
           </header>
 
           <section className="rental-select-container">

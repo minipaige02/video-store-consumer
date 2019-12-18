@@ -4,15 +4,24 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  animation: App-logo-spin infinite 2s linear;
   height: 80px;
 }
 
 .App-header {
-  background-color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1030AD;
   height: 150px;
   padding: 20px;
   color: white;
+}
+
+.App-header > h1 {
+  margin: 25px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 3rem;
 }
 
 .App-title {
@@ -62,5 +71,5 @@
 
 
 .home-img {
-  width: 90vw;
+  min-height: 300px;
 }
