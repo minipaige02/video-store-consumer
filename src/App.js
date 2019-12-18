@@ -25,6 +25,7 @@ class App extends Component {
     this.state = {
       inventory: [],
       customers: [],
+      overdueRentals: [],
       error: "",
       success: "",
       currMovie: "",
@@ -44,6 +45,14 @@ class App extends Component {
     axios.get('http://localhost:2999/customers')
     .then(response => {
       this.setState({ customers: response.data });
+    })
+    .catch(error => {
+      this.setState({ error: error.message, success: "" });
+    })
+
+    axios.get('http://localhost:2999/rentals/overdue')
+    .then(response => {
+      this.setState({ overdueRentals: response.data });
     })
     .catch(error => {
       this.setState({ error: error.message, success: "" });
@@ -75,7 +84,6 @@ class App extends Component {
   }
 
   addToLibrary = (movieObj) => {
-
     axios.post(`http://localhost:2999/movies`, movieObj)
     .then(response => {
       // send new api call to backend to get latest data
@@ -93,12 +101,39 @@ class App extends Component {
   }
 
   eraseAlerts = () => {
-    console.log(`APP will erase alerts!!!!`);
     this.setState({ error: "", success: "" })
   }
 
   createRental = () => {
-    console.log("I'm creating a rental!")
+    if (this.state.currCustomer && this.state.currMovie) {
+      const movieTitle = this.state.currMovie.title
+      const custId = this.state.currCustomer.id
+      const custName = this.state.currCustomer.name
+      let dueDate = new Date();
+      dueDate.setDate(new Date().getDate()+7);
+      axios.post(`http://localhost:2999/rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
+        .then(response => {
+          // send new api call to backend to get latest data
+          axios.get('http://localhost:2999/customers')
+            .then(response => {
+              this.setState({ 
+                customers: response.data,
+                success: `${movieTitle} successfully checked-out to ${custName}!`, 
+                error: "",
+                currMovie: "",
+                currCustomer: ""
+              });
+            })
+            .catch(error => {
+              this.setState({ error: error.message, success: "" });
+          })
+        })
+        .catch(error => {
+          this.setState({ error: error.message, success: "" })
+        })
+    } else {
+      this.setState({success: "", error: "Movie and customer must be selected to create rental."})
+    }
   }
 
   render() {
@@ -121,15 +156,20 @@ class App extends Component {
           </header>
 
           <section className="rental-select-container">
+            <div className="movie-customer__rows">
             <div className="select-movie">
               <p className="select-movie-text">{this.state.currMovie ? `Selected movie: ${this.state.currMovie.title}` : ""}</p>
-              {this.state.currMovie ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currMovie")}>Deselect</button> : ""}
+              <p>{this.state.currMovie ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currMovie")}>Deselect</button> : ""}</p>
             </div>
             <div className="select-customer">
               <p className="select-customer-text">{this.state.currCustomer ? `Selected customer: ${this.state.currCustomer.name}` : ""}</p>
-              {this.state.currCustomer ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currCustomer")}>Deselect</button> : ""}
+              <p>{this.state.currCustomer ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currCustomer")}>Deselect</button> : ""}</p>
             </div>
+            </div>
+
+            <div className="rental-button__container">
             {this.state.currMovie && this.state.currCustomer ? <button type="button" className="btn btn-success rental-button" onClick={this.createRental}>Create Rental</button> : ""}
+            </div>
           </section>
 
           { this.state.error ? <Alert message={this.state.error} alertStyle="alert-danger"/> : null }
@@ -146,10 +186,10 @@ class App extends Component {
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/rentals">
-              <Rentals rentals={this.state.rentals} eraseAlertsCallback={this.eraseAlerts}/>
+              <Rentals overdueRentals={this.state.overdueRentals} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
-              <Home />
+              <Home eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
           </Switch>
         </Router>

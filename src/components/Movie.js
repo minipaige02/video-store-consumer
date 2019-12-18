@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
-
-const formatDate = (release_date) => {
-  const date = new Date(release_date);
-  const month = date.toLocaleString('default', { month: 'long' });
-  const day = date.getUTCDate();
-  const year = date.getFullYear();
-
-  return `${month} ${day}, ${year}`
-}
+import { formatDate } from './Helpers';
 
 const Movie = (props) => {
 

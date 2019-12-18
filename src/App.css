@@ -34,24 +34,32 @@
 
 .rental-select-container {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr
+  grid-template-columns: 3fr 1fr;
 }
 
 .select-movie {
-  grid-row: 1;
-  grid-column: 1/span 2;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
 }
 
 .select-customer {
-  grid-row: 2;
-  grid-column: 1/span 2;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
 }
 
 .select-customer-text, .select-movie-text {
   font-weight: bolder;
 
 }
+
+.rental-button__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .home-img {
   width: 90vw;
