@@ -26,6 +26,7 @@ class App extends Component {
     this.state = {
       inventory: [],
       customers: [],
+      allRentals: [],
       overdueRentals: [],
       error: "",
       success: "",
@@ -34,32 +35,23 @@ class App extends Component {
     }
   }
 
+  getFromBackend = (endpointURL, destinationState, successMsg="") => {
+    axios.get(endpointURL)
+    .then(response => {
+      this.setState({ [destinationState]: response.data, success: successMsg });
+    })
+    .catch(error => {
+      this.setState({ error: error.message, success: "" });
+    })
+  }
+
   componentDidMount() {
-    axios.get('http://localhost:2999/movies')
-    .then(response => {
-      this.setState({ inventory: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
+    const baseURL = 'http://localhost:2999/';
 
-    axios.get('http://localhost:2999/customers')
-    .then(response => {
-      this.setState({ customers: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
-
-    axios.get('http://localhost:2999/rentals/overdue')
-    .then(response => {
-      console.log(response.data);
-      
-      this.setState({ overdueRentals: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
+    this.getFromBackend(`${baseURL}movies`, 'inventory');
+    this.getFromBackend(`${baseURL}customers`, 'customers');
+    this.getFromBackend(`${baseURL}rentals`, 'allRentals');
+    this.getFromBackend(`${baseURL}rentals/overdue`, 'overdueRentals');
   }
 
   setCurrCustomer = (customerId) => {
@@ -90,13 +82,7 @@ class App extends Component {
     axios.post(`http://localhost:2999/movies`, movieObj)
     .then(response => {
       // send new api call to backend to get latest data
-      axios.get('http://localhost:2999/movies')
-      .then(response => {
-        this.setState({ inventory: response.data, success: `${movieObj.title} added to inventory!`, error: ""  });
-      })
-      .catch(error => {
-        this.setState({ error: error.message, success: "" });
-      })
+      this.getFromBackend('http://localhost:2999/movies', 'inventory', `${movieObj.title} added to inventory!`);
     })
     .catch(error => {
       this.setState({ error: error.response.data.railsErrorMsg, success: "" })
@@ -117,19 +103,8 @@ class App extends Component {
       axios.post(`http://localhost:2999/rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
         .then(response => {
           // send new api call to backend to get latest data
-          axios.get('http://localhost:2999/customers')
-            .then(response => {
-              this.setState({ 
-                customers: response.data,
-                success: `${movieTitle} successfully checked-out to ${custName}!`, 
-                error: "",
-                currMovie: "",
-                currCustomer: ""
-              });
-            })
-            .catch(error => {
-              this.setState({ error: error.message, success: "" });
-          })
+          this.getFromBackend('http://localhost:2999/customers', 'customers', `${movieTitle} successfully checked-out to ${custName}!`);
+          this.setState({ currCustomer: "", currMovie: "" })
         })
         .catch(error => {
           this.setState({ error: error.message, success: "" })
@@ -144,10 +119,9 @@ class App extends Component {
 
     axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
     .then( response => {
-      console.log(`need to refresh rentals list!!!`);
-      // refresh rentals list
-
-      
+      // refresh both rentals lists
+      this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals', `${title} successfully returned by customer #${customer_id}`);
+      this.getFromBackend(`http://localhost:2999/rentals/overdue`, 'overdueRentals');
     })
     .catch(error => {
       this.setState({ error: error.message, success: "" });
@@ -208,7 +182,7 @@ class App extends Component {
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/rentals">
-              <Rentals overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} eraseAlertsCallback={this.eraseAlerts}/>
+              <Rentals allRentals={this.state.allRentals} overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
               <Home eraseAlertsCallback={this.eraseAlerts}/>
