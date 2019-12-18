@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Customers from './components/Customers';
@@ -19,6 +18,8 @@ import {
 } from "react-router-dom";
 
 
+const BASE_URL = 'http://localhost:2999/';
+
 class App extends Component {
   constructor() {
     super();
@@ -36,6 +37,7 @@ class App extends Component {
   }
 
   getFromBackend = (endpointURL, destinationState, successMsg="") => {
+    // HELPER FCN
     axios.get(endpointURL)
     .then(response => {
       this.setState({ [destinationState]: response.data, success: successMsg });
@@ -46,12 +48,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const baseURL = 'http://localhost:2999/';
-
-    this.getFromBackend(`${baseURL}movies`, 'inventory');
-    this.getFromBackend(`${baseURL}customers`, 'customers');
-    this.getFromBackend(`${baseURL}rentals`, 'allRentals');
-    this.getFromBackend(`${baseURL}rentals/overdue`, 'overdueRentals');
+    this.getFromBackend(`${BASE_URL}movies`, 'inventory');
+    this.getFromBackend(`${BASE_URL}customers`, 'customers');
+    this.getFromBackend(`${BASE_URL}rentals`, 'allRentals');
+    this.getFromBackend(`${BASE_URL}rentals/overdue`, 'overdueRentals');
   }
 
   setCurrCustomer = (customerId) => {
@@ -119,7 +119,7 @@ class App extends Component {
 
     axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
     .then( response => {
-      // refresh both rentals lists
+      // refresh both rentals lists & customers lists 
       this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals', `${title} successfully returned by customer #${customer_id}`);
       this.getFromBackend(`http://localhost:2999/rentals/overdue`, 'overdueRentals');
     })

@@ -12,12 +12,13 @@ class Rentals extends React.Component {
 
   showRentals = (rentalObjs, checkInCallback) => {
     return ( rentalObjs.map((rental, i) => {
-      return (<tr key={i}>
-      <td>{rental.title}</td>
-      <td>{rental.name}</td>
-      <td>{formatDate(rental.checkout_date)}</td>
-      <td>{formatDate(rental.due_date)}</td>
-      <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-info">Check In</button></td>
+      return (
+      <tr key={i}>
+        <td>{rental.title}</td>
+        <td>{rental.name}</td>
+        <td>{formatDate(rental.checkout_date)}</td>
+        <td>{formatDate(rental.due_date)}</td>
+        <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-info">Check In</button></td>
       </tr>)
     })
     );
