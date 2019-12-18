@@ -93,6 +93,15 @@ class App extends Component {
     this.setState({ error: "", success: "" })
   }
 
+  refreshStates = () => {
+    this.eraseAlerts();
+    // get latest backend db data via API
+    this.getFromBackend(`${BASE_URL}movies`, 'inventory');
+    this.getFromBackend(`${BASE_URL}customers`, 'customers');
+    this.getFromBackend(`${BASE_URL}rentals`, 'allRentals');
+    this.getFromBackend(`${BASE_URL}rentals/overdue`, 'overdueRentals');
+  }
+
   createRental = () => {
     if (this.state.currCustomer && this.state.currMovie) {
       const movieTitle = this.state.currMovie.title
@@ -104,6 +113,7 @@ class App extends Component {
         .then(response => {
           // send new api call to backend to get latest data
           this.getFromBackend('http://localhost:2999/customers', 'customers', `${movieTitle} successfully checked-out to ${custName}!`);
+          this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals');
           this.setState({ currCustomer: "", currMovie: "" })
         })
         .catch(error => {
@@ -119,7 +129,7 @@ class App extends Component {
 
     axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
     .then( response => {
-      // refresh both rentals lists & customers lists 
+      // refresh both rentals lists
       this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals', `${title} successfully returned by customer #${customer_id}`);
       this.getFromBackend(`http://localhost:2999/rentals/overdue`, 'overdueRentals');
     })
@@ -173,19 +183,19 @@ class App extends Component {
 
           <Switch>
             <Route path="/search">
-              <Search addToLibraryCallback={this.addToLibrary} eraseAlertsCallback={this.eraseAlerts}/>
+              <Search addToLibraryCallback={this.addToLibrary} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/library">
-              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} eraseAlertsCallback={this.eraseAlerts}/>
+              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
+              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/rentals">
-              <Rentals allRentals={this.state.allRentals} overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} eraseAlertsCallback={this.eraseAlerts}/>
+              <Rentals allRentals={this.state.allRentals} overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/">
-              <Home eraseAlertsCallback={this.eraseAlerts}/>
+              <Home refreshStatesCallback={this.refreshStates}/>
             </Route>
           </Switch>
         </Router>

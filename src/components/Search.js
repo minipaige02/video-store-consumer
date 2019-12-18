@@ -32,7 +32,7 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    this.props.eraseAlertsCallback();
+    this.props.refreshStatesCallback();
   }
 
 

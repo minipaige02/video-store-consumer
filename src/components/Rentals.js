@@ -7,7 +7,7 @@ import { formatDate } from './Helpers';
 class Rentals extends React.Component {
 
   componentDidMount() {
-    this.props.eraseAlertsCallback();
+    this.props.refreshStatesCallback();
   }
 
   showRentals = (rentalObjs, checkInCallback) => {
@@ -55,7 +55,7 @@ class Rentals extends React.Component {
 
 Rentals.propTypes = {
   overdueRentals: PropTypes.array.isRequired,
-  eraseAlertsCallback: PropTypes.func.isRequired,
+  refreshStatesCallback: PropTypes.func.isRequired,
 }
 
 export default Rentals;
