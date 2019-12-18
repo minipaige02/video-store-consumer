@@ -84,7 +84,6 @@ class App extends Component {
   }
 
   addToLibrary = (movieObj) => {
-
     axios.post(`http://localhost:2999/movies`, movieObj)
     .then(response => {
       // send new api call to backend to get latest data
@@ -106,7 +105,28 @@ class App extends Component {
   }
 
   createRental = () => {
-    console.log("I'm creating a rental!")
+    if (this.state.currCustomer && this.state.currMovie) {
+      const movieTitle = this.state.currMovie.title
+      const custId = this.state.currCustomer.id
+      const custName = this.state.currCustomer.name
+      let dueDate = new Date();
+      dueDate.setDate(new Date().getDate()+7);
+      axios.post(`http://localhost:2999/rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
+        .then(response => {
+          // send new api call to backend to get latest data
+          this.setState({
+            success: `${movieTitle} successfully checked-out to ${custName}!`, 
+            error: "",
+            currMovie: "",
+            currCustomer: ""
+          })
+        })
+        .catch(error => {
+          this.setState({ error: error.message, success: "" })
+        })
+    } else {
+      this.setState({success: "", error: "Movie and customer must be selected to create rental."})
+    }
   }
 
   render() {
