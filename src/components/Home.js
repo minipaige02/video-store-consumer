@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -9,7 +8,7 @@ class Home extends React.Component {
   render() {
     return(
     <section>
-      <img src="https://live.staticflickr.com/4098/4943160683_37e9fb2830_m.jpg" alt="VHS" className="home-img"/>
+      <img src="https://ih0.redbubble.net/image.591029586.5228/flat,550x550,075,f.jpg" alt="Be kind rewind VHS tape" className="home-img"/>
     </section>
     );
   }

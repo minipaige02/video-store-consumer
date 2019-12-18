@@ -18,8 +18,17 @@ const Customer = ({id, name, registered_at, address, city, state, postal_code, p
   );
 };
 
-// Customer.propTypes = {
-
-// }
+Customer.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  registered_at: PropTypes.string.isRequired,
+  address: PropTypes.string,
+  city: PropTypes.string,
+  state: PropTypes.string,
+  postal_code: PropTypes.string,
+  account_credit: PropTypes.number,
+  movies_checked_out_count: PropTypes.number,
+  currCustomerCallback: PropTypes.func.isRequired,
+}
 
 export default Customer;
