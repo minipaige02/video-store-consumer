@@ -93,7 +93,6 @@ class App extends Component {
   }
 
   eraseAlerts = () => {
-    console.log(`APP will erase alerts!!!!`);
     this.setState({ error: "", success: "" })
   }
 
@@ -121,15 +120,20 @@ class App extends Component {
           </header>
 
           <section className="rental-select-container">
+            <div className="movie-customer__rows">
             <div className="select-movie">
               <p className="select-movie-text">{this.state.currMovie ? `Selected movie: ${this.state.currMovie.title}` : ""}</p>
-              {this.state.currMovie ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currMovie")}>Deselect</button> : ""}
+              <p>{this.state.currMovie ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currMovie")}>Deselect</button> : ""}</p>
             </div>
             <div className="select-customer">
               <p className="select-customer-text">{this.state.currCustomer ? `Selected customer: ${this.state.currCustomer.name}` : ""}</p>
-              {this.state.currCustomer ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currCustomer")}>Deselect</button> : ""}
+              <p>{this.state.currCustomer ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currCustomer")}>Deselect</button> : ""}</p>
             </div>
+            </div>
+
+            <div className="rental-button__container">
             {this.state.currMovie && this.state.currCustomer ? <button type="button" className="btn btn-success rental-button" onClick={this.createRental}>Create Rental</button> : ""}
+            </div>
           </section>
 
           { this.state.error ? <Alert message={this.state.error} alertStyle="alert-danger"/> : null }
@@ -149,7 +153,7 @@ class App extends Component {
               <Rentals rentals={this.state.rentals} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
-              <Home />
+              <Home eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
           </Switch>
         </Router>
