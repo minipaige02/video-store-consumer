@@ -35,11 +35,11 @@ class Library extends React.Component {
           <table className="table table-striped">
             <thead className="table-header-row">
               <tr>
-                <th ></th>
-                <th ></th>
-                <th >Title</th>
+                <th></th>
+                <th></th>
+                <th>Title</th>
                 <th className="w-25">Release Date</th>
-                <th >Overview</th>
+                <th>Overview</th>
               </tr>
             </thead>
   
@@ -61,7 +61,6 @@ class Library extends React.Component {
   }
 
   render() {
-    console.log(this.props.inventory);
     return this.displayMovies(this.props.inventory, this.props.setCurrMovieCallback);
   }
 }
