@@ -34,10 +34,10 @@ class App extends Component {
     }
   }
 
-  getFromBackend = (endpointURL, destinationState) => {
+  getFromBackend = (endpointURL, destinationState, successMsg="") => {
     axios.get(endpointURL)
     .then(response => {
-      this.setState({ [destinationState]: response.data });
+      this.setState({ [destinationState]: response.data, success: successMsg });
     })
     .catch(error => {
       this.setState({ error: error.message, success: "" });
@@ -81,13 +81,7 @@ class App extends Component {
     axios.post(`http://localhost:2999/movies`, movieObj)
     .then(response => {
       // send new api call to backend to get latest data
-      axios.get('http://localhost:2999/movies')
-      .then(response => {
-        this.setState({ inventory: response.data, success: `${movieObj.title} added to inventory!`, error: ""  });
-      })
-      .catch(error => {
-        this.setState({ error: error.message, success: "" });
-      })
+      this.getFromBackend('http://localhost:2999/movies', 'inventory', `${movieObj.title} added to inventory!`);
     })
     .catch(error => {
       this.setState({ error: error.response.data.railsErrorMsg, success: "" })
@@ -108,19 +102,8 @@ class App extends Component {
       axios.post(`http://localhost:2999/rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
         .then(response => {
           // send new api call to backend to get latest data
-          axios.get('http://localhost:2999/customers')
-            .then(response => {
-              this.setState({ 
-                customers: response.data,
-                success: `${movieTitle} successfully checked-out to ${custName}!`, 
-                error: "",
-                currMovie: "",
-                currCustomer: ""
-              });
-            })
-            .catch(error => {
-              this.setState({ error: error.message, success: "" });
-          })
+          this.getFromBackend('http://localhost:2999/customers', 'customers', `${movieTitle} successfully checked-out to ${custName}!`);
+          this.setState({ currCustomer: "", currMovie: "" })
         })
         .catch(error => {
           this.setState({ error: error.message, success: "" })
