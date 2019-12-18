@@ -21,7 +21,7 @@ class Customers extends React.Component {
       <table className="table table-striped">
         <thead className="table-header-row">
           <tr>
-            <th>CurrCustomer</th>
+            <th></th>
             <th>Id</th>
             <th>Name</th>
             <th>Account Credit</th>

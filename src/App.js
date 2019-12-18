@@ -52,6 +52,8 @@ class App extends Component {
 
     axios.get('http://localhost:2999/rentals/overdue')
     .then(response => {
+      console.log(response.data);
+      
       this.setState({ overdueRentals: response.data });
     })
     .catch(error => {
@@ -136,6 +138,23 @@ class App extends Component {
     }
   }
 
+  checkIn = (customer_id, title) => {
+    console.log(`App.js will checkIN() on ${customer_id} & ${title}`);
+
+    axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
+    .then( response => {
+      console.log(`need to refresh rentals list!!!`);
+      // refresh rentals list
+
+      
+    })
+    .catch(error => {
+      this.setState({ error: error.message, success: "" });
+    });
+
+  }
+
+
   render() {
     
     return (
@@ -186,7 +205,7 @@ class App extends Component {
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/rentals">
-              <Rentals overdueRentals={this.state.overdueRentals} eraseAlertsCallback={this.eraseAlerts}/>
+              <Rentals overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
               <Home eraseAlertsCallback={this.eraseAlerts}/>
