@@ -114,11 +114,18 @@ class App extends Component {
       axios.post(`http://localhost:2999/rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
         .then(response => {
           // send new api call to backend to get latest data
-          this.setState({
-            success: `${movieTitle} successfully checked-out to ${custName}!`, 
-            error: "",
-            currMovie: "",
-            currCustomer: ""
+          axios.get('http://localhost:2999/customers')
+            .then(response => {
+              this.setState({ 
+                customers: response.data,
+                success: `${movieTitle} successfully checked-out to ${custName}!`, 
+                error: "",
+                currMovie: "",
+                currCustomer: ""
+              });
+            })
+            .catch(error => {
+              this.setState({ error: error.message, success: "" });
           })
         })
         .catch(error => {
