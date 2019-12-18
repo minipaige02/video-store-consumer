@@ -34,40 +34,23 @@ class App extends Component {
     }
   }
 
+  getFromBackend = (endpointURL, destinationState) => {
+    axios.get(endpointURL)
+    .then(response => {
+      this.setState({ [destinationState]: response.data });
+    })
+    .catch(error => {
+      this.setState({ error: error.message, success: "" });
+    })
+  }
+
   componentDidMount() {
-    axios.get('http://localhost:2999/movies')
-    .then(response => {
-      this.setState({ inventory: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
+    const baseURL = 'http://localhost:2999/';
 
-    axios.get('http://localhost:2999/customers')
-    .then(response => {
-      this.setState({ customers: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
-
-    axios.get('http://localhost:2999/rentals/overdue')
-    .then(response => {
-      console.log(response.data);
-      
-      this.setState({ overdueRentals: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
-
-    axios.get('http://localhost:2999/rentals')
-    .then(response => {
-      this.setState({ allRentals: response.data });
-    })
-    .catch(error => {
-      this.setState({ error: error.message, success: "" });
-    })
+    this.getFromBackend(`${baseURL}movies`, 'inventory');
+    this.getFromBackend(`${baseURL}customers`, 'customers');
+    this.getFromBackend(`${baseURL}rentals`, 'allRentals');
+    this.getFromBackend(`${baseURL}rentals/overdue`, 'overdueRentals');
   }
 
   setCurrCustomer = (customerId) => {
@@ -154,6 +137,8 @@ class App extends Component {
     .then( response => {
       console.log(`need to refresh rentals list!!!`);
       // refresh rentals list
+      
+
 
       
     })
