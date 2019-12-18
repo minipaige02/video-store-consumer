@@ -7,6 +7,7 @@ import Search from './components/Search';
 import Library from './components/Library';
 import Home from './components/Home';
 import Alert from './components/Alert';
+import Rentals from './components/Rentals';
 import axios from 'axios';
 
 import {
@@ -109,8 +110,9 @@ class App extends Component {
           <nav className="navbar navbar-light">
             <Link to="/">Home</Link>
             <Link to="/search">Movie Search</Link>
-            <Link to="/library">Rental library</Link>
+            <Link to="/library">Library</Link>
             <Link to="/customers">Customers</Link>
+            <Link to="/rentals">Rentals</Link>
           </nav>
 
           <header className="App-header">
@@ -142,6 +144,9 @@ class App extends Component {
             </Route>
             <Route path="/customers">
               <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
+            </Route>
+            <Route path="/rentals">
+              <Rentals rentals={this.state.rentals} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
               <Home />
