@@ -129,6 +129,12 @@ class App extends Component {
     }
   }
 
+  checkIn = () => {
+    console.log(`App.js will checkIN()`);
+    
+  }
+
+
   render() {
     
     return (
