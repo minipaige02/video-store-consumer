@@ -198,7 +198,15 @@ class App extends Component {
               <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers} allRentals={this.state.allRentals} custDetails={this.state.custDetails} setCustDetailsCallback={this.setCustDetails} currCustomerCallback={this.setCurrCustomer} refreshStatesCallback={this.refreshStates}/>
+              <Customers 
+                customers={this.state.customers} 
+                allRentals={this.state.allRentals} 
+                custDetails={this.state.custDetails} 
+                setCustDetailsCallback={this.setCustDetails} 
+                currCustomerCallback={this.setCurrCustomer} 
+                refreshStatesCallback={this.refreshStates}
+                deselectCallback={this.deselect}
+                />
             </Route>
             <Route path="/rentals">
               <Rentals allRentals={this.state.allRentals} overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} refreshStatesCallback={this.refreshStates}/>

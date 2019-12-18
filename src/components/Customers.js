@@ -9,6 +9,11 @@ class Customers extends React.Component {
     this.props.refreshStatesCallback();
   }
 
+  componentWillMount() {
+    this.props.deselectCallback("custDetails");
+  }
+
+
   listCustomers = () => {
     return (this.props.customers.map((customerObj, i) => {
       if (this.props.custDetails) {
@@ -58,6 +63,7 @@ Customers.propTypes = {
   setCustDetailsCallback: PropTypes.func.isRequired,
   currCustomerCallback: PropTypes.func,
   refreshStatesCallback: PropTypes.func,
+  deselectCallback: PropTypes.func,
 }
 
 export default Customers;
