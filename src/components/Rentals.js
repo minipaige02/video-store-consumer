@@ -41,7 +41,7 @@ class Rentals extends React.Component {
             <tbody>
               <h1>ALL RENTALS BELOW</h1>
               {this.showRentals(this.props.allRentals, this.props.checkInCallback)}
-              <hr />
+              
               <h1>OVERDUES BELOW</h1>
               {this.showRentals(this.props.overdueRentals, this.props.checkInCallback)}
             </tbody>
