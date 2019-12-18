@@ -49,8 +49,8 @@ class Rentals extends React.Component {
 }
 
 Rentals.propTypes = {
-  rentals: PropTypes.array.isRequired,
-  eraseAlertsCallback
+  overdueRentals: PropTypes.array.isRequired,
+  eraseAlertsCallback: PropTypes.func.isRequired,
 }
 
 export default Rentals;
