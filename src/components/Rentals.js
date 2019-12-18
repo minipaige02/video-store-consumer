@@ -10,14 +10,14 @@ class Rentals extends React.Component {
     this.props.eraseAlertsCallback();
   }
 
-  showAllOverdues = (overdueRentals, checkInCallback) => {
-    return ( overdueRentals.map((entry, i) => {
+  showRentals = (rentalObjs, checkInCallback) => {
+    return ( rentalObjs.map((rental, i) => {
       return (<tr key={i}>
-      <td>{entry.title}</td>
-      <td>{entry.name}</td>
-      <td>{formatDate(entry.checkout_date)}</td>
-      <td>{formatDate(entry.due_date)}</td>
-      <td><button onClick={() => {checkInCallback(entry.customer_id, entry.title)}} className="btn btn-info">Check In</button></td>
+      <td>{rental.title}</td>
+      <td>{rental.name}</td>
+      <td>{formatDate(rental.checkout_date)}</td>
+      <td>{formatDate(rental.due_date)}</td>
+      <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-info">Check In</button></td>
       </tr>)
     })
     );
@@ -39,8 +39,11 @@ class Rentals extends React.Component {
             </thead>
   
             <tbody>
-              {this.showAllOverdues(this.props.allRentals, this.props.checkInCallback)}
-              {/* {this.showAllOverdues(this.props.overdueRentals, this.props.checkInCallback)} */}
+              <h1>ALL RENTALS BELOW</h1>
+              {this.showRentals(this.props.allRentals, this.props.checkInCallback)}
+              <hr />
+              <h1>OVERDUES BELOW</h1>
+              {this.showRentals(this.props.overdueRentals, this.props.checkInCallback)}
             </tbody>
           </table>
         </section>
