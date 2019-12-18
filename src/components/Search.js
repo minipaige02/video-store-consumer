@@ -31,6 +31,10 @@ class Search extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.props.eraseAlertsCallback();
+  }
+
 
   render(props){
     const results = this.state.searchResults.map((movie, i) => {

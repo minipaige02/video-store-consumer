@@ -25,6 +25,7 @@ class App extends Component {
       inventory: [],
       customers: [],
       error: "",
+      success: "",
       currMovie: null,
       currCustomerId: null,
       currCustomerName: null,
@@ -37,7 +38,7 @@ class App extends Component {
       this.setState({ inventory: response.data });
     })
     .catch(error => {
-      this.setState({ error: error.message });
+      this.setState({ error: error.message, success: "" });
     })
 
     axios.get('http://localhost:2999/customers')
@@ -45,7 +46,7 @@ class App extends Component {
       this.setState({ customers: response.data });
     })
     .catch(error => {
-      this.setState({ error: error.message });
+      this.setState({ error: error.message, success: "" });
     })
   }
 
@@ -85,16 +86,24 @@ class App extends Component {
       // send new api call to backend to get latest data
       axios.get('http://localhost:2999/movies')
       .then(response => {
-        this.setState({ inventory: response.data });
+        this.setState({ inventory: response.data, success: `${movieObj.title} added to inventory!`, error: ""  });
       })
       .catch(error => {
-        this.setState({ error: error.message });
+        this.setState({ error: error.message, success: "" });
       })
     })
     .catch(error => {
-      this.setState({ error: error.response.data.railsErrorMsg })
+      this.setState({ error: error.response.data.railsErrorMsg, success: "" })
     })
   }
+
+  eraseAlerts = () => {
+    console.log(`APP will erase alerts!!!!`);
+    console.log(this);
+    
+    this.setState({ error: "", success: "" })
+  }
+
 
   render() {
     return (
@@ -120,16 +129,17 @@ class App extends Component {
           </div>
 
           { this.state.error ? <Alert message={this.state.error} alertStyle="alert-danger"/> : null }
+          { this.state.success ? <Alert message={this.state.success} alertStyle="alert-success"/> : null }
 
           <Switch>
             <Route path="/search">
-              <Search addToLibraryCallback={this.addToLibrary}/>
+              <Search addToLibraryCallback={this.addToLibrary} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/library">
-              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie}/>
+              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
+              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
               <Home />

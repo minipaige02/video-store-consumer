@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import './Library.css';
 
 
+
 const getMovies = (inventory, setCurrMovieCallback) => {
+
   const sortedInventory = inventory.sort(function(a, b) {
     const titleA=a.title, titleB=b.title
     if (titleA < titleB ) {

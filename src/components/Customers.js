@@ -10,8 +10,6 @@ const Customers = (props) => {
     return <Customer key={i} {...customerObj} currCustomerCallback={props.currCustomerCallback}/>
   })
 
-  
-
   return(
     <section>
       <table className="table table-striped">
