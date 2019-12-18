@@ -2,3 +2,7 @@
   background-color: black;
   color: white;
 }
+
+.customer-name {
+  text-align: left;
+}

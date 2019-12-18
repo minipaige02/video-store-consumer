@@ -33,6 +33,7 @@ class App extends Component {
       success: "",
       currMovie: "",
       currCustomer: "",
+      custDetails: 4,
     }
   }
 
@@ -70,6 +71,10 @@ class App extends Component {
     });
 
     this.setState({currMovie});
+  }
+
+  setCustDetails = (customerId) => {
+    this.setState({custDetails: customerId})
   }
 
   deselect = (item) => {
@@ -140,6 +145,8 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state.custDetails)
+
     const iconUrl = "https://www.pngrepo.com/png/284024/170/vhs.png"
     
     return (
@@ -188,7 +195,7 @@ class App extends Component {
               <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} refreshStatesCallback={this.refreshStates}/>
+              <Customers customers={this.state.customers} allRentals={this.state.allRentals} custDetails={this.state.custDetails} setCustDetailsCallback={this.setCustDetails} currCustomerCallback={this.setCurrCustomer} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/rentals">
               <Rentals allRentals={this.state.allRentals} overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} refreshStatesCallback={this.refreshStates}/>
