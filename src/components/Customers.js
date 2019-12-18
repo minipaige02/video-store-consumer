@@ -17,13 +17,12 @@ class Customers extends React.Component {
           const checkedOut = rentals.filter((rental) => {
             return rental.customer_id === customerObj.id
           });
-          console.log(checkedOut)
-          return <Customer key={i} {...customerObj} checkedOut={checkedOut} detailsDisplay={true} currCustomerCallback={this.props.currCustomerCallback}/>
+          return <Customer key={i} {...customerObj} checkedOut={checkedOut} detailsDisplay={true} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
         } else {
-          return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback}/>
+          return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
         }
       } else {
-        return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback}/>
+        return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
       }
     }));
   }
@@ -54,8 +53,8 @@ class Customers extends React.Component {
 
 Customers.propTypes = {
   customers: PropTypes.array.isRequired,
-  custDetails: PropTypes.number,
   allRentals: PropTypes.array,
+  custDetails: PropTypes.number,
   setCustDetailsCallback: PropTypes.func.isRequired,
   currCustomerCallback: PropTypes.func,
   refreshStatesCallback: PropTypes.func,

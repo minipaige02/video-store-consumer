@@ -31,9 +31,9 @@ class App extends Component {
       overdueRentals: [],
       error: "",
       success: "",
-      currMovie: "",
-      currCustomer: "",
-      custDetails: 4,
+      currMovie: null,
+      currCustomer: null,
+      custDetails: null,
     }
   }
 
@@ -74,12 +74,17 @@ class App extends Component {
   }
 
   setCustDetails = (customerId) => {
-    this.setState({custDetails: customerId})
+    const currCustDetails = this.state.custDetails;
+    if (currCustDetails !== customerId){
+      this.setState({custDetails: customerId});
+    } else {
+      this.deselect("custDetails");
+    }
   }
 
   deselect = (item) => {
     const resetState = {};
-    resetState[item] = "";
+    resetState[item] = null;
     this.setState(resetState);
   }
 
@@ -145,8 +150,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.custDetails)
-
     const iconUrl = "https://www.pngrepo.com/png/284024/170/vhs.png"
     
     return (
