@@ -55,7 +55,7 @@ class App extends Component {
       return customer.id === customerId;
     });
 
-    this.setState( {currCustomer,} )
+    this.setState( {currCustomer} )
   }
 
   setCurrMovie = (movieId) => {
@@ -64,7 +64,7 @@ class App extends Component {
       return movie.id === movieId;
     });
 
-    this.setState({currMovie,});
+    this.setState({currMovie});
   }
 
   deselect = (item) => {
@@ -96,12 +96,12 @@ class App extends Component {
     this.setState({ error: "", success: "" })
   }
 
-
   createRental = () => {
     console.log("I'm creating a rental!")
   }
 
   render() {
+    
     return (
       <div className="App">
       
