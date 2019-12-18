@@ -20,6 +20,7 @@ const getMovies = (inventory, setCurrMovieCallback) => {
     return <Movie 
       key={i}
       {...movie}
+      buttonText="Select"
       selectMovieCallback={() => setCurrMovieCallback(movie.id)}
     />
   });
