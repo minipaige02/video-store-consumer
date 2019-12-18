@@ -38,12 +38,10 @@ class Customers extends React.Component {
   }
 }
 
-  
-
-  
-
-// Customers.propTypes = {
-
-// }
+Customers.propTypes = {
+  customers: PropTypes.array.isRequired,
+  currCustomerCallback: PropTypes.func,
+  eraseAlertsCallback: PropTypes.func,
+}
 
 export default Customers;

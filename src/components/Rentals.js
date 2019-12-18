@@ -12,9 +12,9 @@ class Rentals extends React.Component {
   }
 }
 
-
-
-// Rentals.propTypes = {
-// }
+Rentals.propTypes = {
+  rentals: PropTypes.array.isRequired,
+  eraseAlertsCallback
+}
 
 export default Rentals;
