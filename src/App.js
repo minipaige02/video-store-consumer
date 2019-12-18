@@ -153,7 +153,7 @@ class App extends Component {
               <Rentals rentals={this.state.rentals} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
-              <Home />
+              <Home eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
           </Switch>
         </Router>
