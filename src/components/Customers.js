@@ -3,16 +3,20 @@ import Customer from './Customer';
 import PropTypes from 'prop-types';
 import './Customers.css';
 
-const Customers = (props) => {
+class Customers extends React.Component {
 
-  const listCustomers = props.customers.map((customerObj, i) => {
-    
-    return <Customer key={i} {...customerObj} currCustomerCallback={props.currCustomerCallback}/>
-  })
+  componentDidMount() {
+    this.props.eraseAlertsCallback();
+  }
 
-  
+  listCustomers = () => {
+    return (this.props.customers.map((customerObj, i) => {
+      return <Customer key={i} {...customerObj} currCustomerCallback={this.props.currCustomerCallback}/>
+    }));
+  }
 
-  return(
+  render() {
+    return(
     <section>
       <table className="table table-striped">
         <thead className="table-header-row">
@@ -26,12 +30,17 @@ const Customers = (props) => {
         </thead>
         
         <tbody>
-          {listCustomers}
+          {this.listCustomers()}
         </tbody> 
       </table>
     </section>
   );
-};
+  }
+}
+
+  
+
+  
 
 // Customers.propTypes = {
 

@@ -6,6 +6,7 @@ import Customers from './components/Customers';
 import Search from './components/Search';
 import Library from './components/Library';
 import Home from './components/Home';
+import Alert from './components/Alert';
 import axios from 'axios';
 
 import {
@@ -23,8 +24,8 @@ class App extends Component {
     this.state = {
       inventory: [],
       customers: [],
-      errorCustomers: "",
-      errorInventory: "",
+      error: "",
+      success: "",
       currMovie: "",
       currCustomer: "",
     }
@@ -36,7 +37,7 @@ class App extends Component {
       this.setState({ inventory: response.data });
     })
     .catch(error => {
-      this.setState({ errorInventory: error.message });
+      this.setState({ error: error.message, success: "" });
     })
 
     axios.get('http://localhost:2999/customers')
@@ -44,7 +45,7 @@ class App extends Component {
       this.setState({ customers: response.data });
     })
     .catch(error => {
-      this.setState({ errorCustomers: error.message });
+      this.setState({ error: error.message, success: "" });
     })
   }
 
@@ -54,7 +55,7 @@ class App extends Component {
       return customer.id === customerId;
     });
 
-    this.setState( {currCustomer,} )
+    this.setState( {currCustomer} )
   }
 
   setCurrMovie = (movieId) => {
@@ -63,7 +64,7 @@ class App extends Component {
       return movie.id === movieId;
     });
 
-    this.setState({currMovie,});
+    this.setState({currMovie});
   }
 
   deselect = (item) => {
@@ -79,17 +80,20 @@ class App extends Component {
       // send new api call to backend to get latest data
       axios.get('http://localhost:2999/movies')
       .then(response => {
-        this.setState({ inventory: response.data });
+        this.setState({ inventory: response.data, success: `${movieObj.title} added to inventory!`, error: ""  });
       })
       .catch(error => {
-        this.setState({ errorInventory: error.message });
+        this.setState({ error: error.message, success: "" });
       })
     })
     .catch(error => {
-      console.log(`PROCESING received error msg from rails: ${Object.entries(error.response)}`);
-
-      // this.setState({ error: error })
+      this.setState({ error: error.response.data.railsErrorMsg, success: "" })
     })
+  }
+
+  eraseAlerts = () => {
+    console.log(`APP will erase alerts!!!!`);
+    this.setState({ error: "", success: "" })
   }
 
   createRental = () => {
@@ -97,6 +101,7 @@ class App extends Component {
   }
 
   render() {
+    
     return (
       <div className="App">
       
@@ -125,15 +130,18 @@ class App extends Component {
             {this.state.currMovie && this.state.currCustomer ? <button type="button" className="btn btn-success rental-button" onClick={this.createRental}>Create Rental</button> : ""}
           </section>
 
+          { this.state.error ? <Alert message={this.state.error} alertStyle="alert-danger"/> : null }
+          { this.state.success ? <Alert message={this.state.success} alertStyle="alert-success"/> : null }
+
           <Switch>
             <Route path="/search">
-              <Search addToLibraryCallback={this.addToLibrary}/>
+              <Search addToLibraryCallback={this.addToLibrary} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/library">
-              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie}/>
+              <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer}/>
+              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/">
               <Home />
