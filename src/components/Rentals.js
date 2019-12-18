@@ -5,6 +5,13 @@ import { formatDate } from './Helpers';
 
 
 class Rentals extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     currList: props.allRentals,
+  //   }
+  // }
+
 
   componentDidMount() {
     this.props.refreshStatesCallback();
@@ -30,10 +37,31 @@ class Rentals extends React.Component {
     );
   }
 
+  showCorrectTable = () => {
+    if (true) {
+      return (this.showRentals(this.props.allRentals, this.props.checkInCallback));
+    } else if (false) {
+      return (this.showRentals(this.props.overdueRentals, this.props.checkInCallback));
+    }
+  }
+
+  wassup = () => {
+    console.log(`wassup`);
+    
+  }
+
   render() {
     return(
       <section>
-          <h3>ALL RENTALS(red=overdue) *or* OVERDUES </h3>
+        <ul className="nav nav-tabs">
+          <li className="nav-item">
+            <a className="nav-link active" value="allRentals" onClick={this.wassup}>All Rentals</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" value="overdueRentals" onClick={this.wassup}>Overdue Rentals</a>
+          </li>
+        </ul>
+
           <table className="table table-striped">
             <thead className="table-header-row">
               <tr>
@@ -46,14 +74,10 @@ class Rentals extends React.Component {
             </thead>
   
             <tbody>
-              <h3>ALL RENTALS</h3>
-              {this.showRentals(this.props.allRentals, this.props.checkInCallback)}
-              
-              <h3>OVERDUES</h3>
-              {this.showRentals(this.props.overdueRentals, this.props.checkInCallback)}
+              {this.showCorrectTable()}
             </tbody>
           </table>
-        </section>
+      </section>
 
     );
   }
