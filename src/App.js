@@ -125,7 +125,6 @@ class App extends Component {
   }
 
   checkIn = (customer_id, title) => {
-    console.log(`App.js will checkIN() on ${customer_id} & ${title}`);
 
     axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
     .then( response => {
