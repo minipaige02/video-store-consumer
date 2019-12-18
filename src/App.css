@@ -73,3 +73,19 @@
 .home-img {
   min-height: 300px;
 }
+
+.primary-color {
+  color: #1030AD;
+}
+
+.secondary-color {
+  color: #FFCC00;
+}
+
+nav > a {
+  color: #1030AD;
+}
+
+nav > a:hover {
+  color: #FFCC00;
+}

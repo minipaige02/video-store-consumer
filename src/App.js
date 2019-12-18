@@ -173,7 +173,7 @@ class App extends Component {
 
           <header className="App-header">
             <img src={iconUrl} className="App-logo" alt="logo" />
-            <h1 className="App-title">Old-Timey Motion Picture Dispensary</h1>
+            <h1 className="App-title secondary-color">Old-Timey Motion Picture Dispensary</h1>
             <img src={iconUrl} className="App-logo" alt="logo" />
           </header>
 
