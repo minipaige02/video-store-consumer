@@ -7,17 +7,18 @@ import { formatDate } from './Helpers';
 class Rentals extends React.Component {
 
   componentDidMount() {
-    this.props.eraseAlertsCallback();
+    this.props.refreshStatesCallback();
   }
 
   showRentals = (rentalObjs, checkInCallback) => {
     return ( rentalObjs.map((rental, i) => {
-      return (<tr key={i}>
-      <td>{rental.title}</td>
-      <td>{rental.name}</td>
-      <td>{formatDate(rental.checkout_date)}</td>
-      <td>{formatDate(rental.due_date)}</td>
-      <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-info">Check In</button></td>
+      return (
+      <tr key={i}>
+        <td>{rental.title}</td>
+        <td>{rental.name}</td>
+        <td>{formatDate(rental.checkout_date)}</td>
+        <td>{formatDate(rental.due_date)}</td>
+        <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-info">Check In</button></td>
       </tr>)
     })
     );
@@ -54,7 +55,7 @@ class Rentals extends React.Component {
 
 Rentals.propTypes = {
   overdueRentals: PropTypes.array.isRequired,
-  eraseAlertsCallback: PropTypes.func.isRequired,
+  refreshStatesCallback: PropTypes.func.isRequired,
 }
 
 export default Rentals;
