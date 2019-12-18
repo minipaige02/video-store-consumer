@@ -11,7 +11,7 @@ const Customer = ({id, name, registered_at, address, city, state, postal_code, p
   
   if (detailsDisplay) {
     const rentalsList = checkedOut.map((rental, i) => {
-    return <li key={i}><strong>{rental.title}</strong> | Checked-out: {formatDate(rental.checkout_date)} | Due: {formatDate(rental.due_date)}</li>
+    return <li key={i}><strong className="primary-color">{rental.title}</strong> | Checked-out: {formatDate(rental.checkout_date)} | Due: {formatDate(rental.due_date)}</li>
     });
   
     return(

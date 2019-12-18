@@ -6,7 +6,7 @@ import './Customers.css';
 class Customers extends React.Component {
 
   componentDidMount() {
-    this.props.eraseAlertsCallback();
+    this.props.refreshStatesCallback();
   }
 
   listCustomers = () => {
@@ -58,7 +58,7 @@ Customers.propTypes = {
   allRentals: PropTypes.array,
   setCustDetailsCallback: PropTypes.func.isRequired,
   currCustomerCallback: PropTypes.func,
-  eraseAlertsCallback: PropTypes.func,
+  refreshStatesCallback: PropTypes.func,
 }
 
 export default Customers;
