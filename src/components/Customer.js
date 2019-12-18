@@ -9,7 +9,7 @@ const Customer = ({eraseAlertsCallback, id, name, registered_at, address, city, 
 
   return(
     <tr>
-      <td><button value={id} name={name} onClick={()=>currCustomerCallback(id, name)} className="btn btn-info">Select</button></td>
+      <td><button value={id} name={name} onClick={()=>currCustomerCallback(id)} className="btn btn-info">Select</button></td>
       <td>{id}</td>
       <td>{name}</td>
       <td>{showDollars(account_credit)}</td>

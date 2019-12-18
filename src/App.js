@@ -26,9 +26,8 @@ class App extends Component {
       customers: [],
       error: "",
       success: "",
-      currMovie: null,
-      currCustomerId: null,
-      currCustomerName: null,
+      currMovie: "",
+      currCustomer: "",
     }
   }
 
@@ -50,33 +49,28 @@ class App extends Component {
     })
   }
 
-  setCurrCustomer = (currCustomerId, currCustomerName) => {
-    this.setState( {currCustomerId, currCustomerName} )
+  setCurrCustomer = (customerId) => {
+    const {customers} = this.state;
+    const currCustomer = customers.find((customer) => {
+      return customer.id === customerId;
+    });
+
+    this.setState( {currCustomer,} )
   }
 
-  showCurrCustomer = () => {
-    if (this.state.currCustomerId) {
-      return (`Selected Customer = #${this.state.currCustomerId}, ${this.state.currCustomerName}`);
-    } else {
-      return (`Please click 'Select' on a customer`);
-    }
-  }
-
-  setCurrMovie = (id) => {
+  setCurrMovie = (movieId) => {
     const {inventory} = this.state;
     const currMovie = inventory.find((movie) => {
-      return movie.id === id;
+      return movie.id === movieId;
     });
 
     this.setState({currMovie,});
   }
 
-  showCurrMovie = () => {
-    if (this.state.currMovie) {
-      return (`Selected movie = ${this.state.currMovie.title}`);
-    } else {
-      return (`Please click 'Select' on a movie`);
-    }
+  deselect = (item) => {
+    const resetState = {};
+    resetState[item] = "";
+    this.setState(resetState);
   }
 
   addToLibrary = (movieObj) => {
@@ -105,6 +99,10 @@ class App extends Component {
   }
 
 
+  createRental = () => {
+    console.log("I'm creating a rental!")
+  }
+
   render() {
     return (
       <div className="App">
@@ -122,11 +120,17 @@ class App extends Component {
             <h1 className="App-title">Paige & Caroline's Old-Timey Homegrown Motion Picture Dispensary</h1>
           </header>
 
-          <div className="card bg-light text-dark">
-            <h5 className="card-title">Checking Out   (add checkout button later)</h5>
-            <p className="card-text">{this.showCurrMovie()}</p>
-            <p className="card-text">{this.showCurrCustomer()}</p>
-          </div>
+          <section className="rental-select-container">
+            <div className="select-movie">
+              <p className="select-movie-text">{this.state.currMovie ? `Selected movie: ${this.state.currMovie.title}` : ""}</p>
+              {this.state.currMovie ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currMovie")}>Deselect</button> : ""}
+            </div>
+            <div className="select-customer">
+              <p className="select-customer-text">{this.state.currCustomer ? `Selected customer: ${this.state.currCustomer.name}` : ""}</p>
+              {this.state.currCustomer ? <button type="button" className="btn btn-secondary" onClick={() => this.deselect("currCustomer")}>Deselect</button> : ""}
+            </div>
+            {this.state.currMovie && this.state.currCustomer ? <button type="button" className="btn btn-success rental-button" onClick={this.createRental}>Create Rental</button> : ""}
+          </section>
 
           { this.state.error ? <Alert message={this.state.error} alertStyle="alert-danger"/> : null }
           { this.state.success ? <Alert message={this.state.success} alertStyle="alert-success"/> : null }
@@ -146,7 +150,6 @@ class App extends Component {
             </Route>
           </Switch>
         </Router>
-
       </div>
     );
   }
