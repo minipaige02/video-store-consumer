@@ -26,7 +26,7 @@ class Rentals extends React.Component {
   render() {
     return(
       <section>
-          <h3>All Active Rentals (red=overdue)</h3>
+          <h3>ALL RENTALS(red=overdue) *or* OVERDUES </h3>
           <table className="table table-striped">
             <thead className="table-header-row">
               <tr>
@@ -39,10 +39,10 @@ class Rentals extends React.Component {
             </thead>
   
             <tbody>
-              <h1>ALL RENTALS BELOW</h1>
+              <h3>ALL RENTALS BELOW</h3>
               {this.showRentals(this.props.allRentals, this.props.checkInCallback)}
               
-              <h1>OVERDUES BELOW</h1>
+              <h3>OVERDUES BELOW</h3>
               {this.showRentals(this.props.overdueRentals, this.props.checkInCallback)}
             </tbody>
           </table>

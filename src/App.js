@@ -118,12 +118,9 @@ class App extends Component {
 
     axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
     .then( response => {
-      console.log(`need to refresh rentals list!!!`);
-      // refresh rentals list
-      
-
-
-      
+      // refresh both rentals lists
+      this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals', `${title} successfully returned by customer #${customer_id}`);
+      this.getFromBackend(`http://localhost:2999/rentals/overdue`, 'overdueRentals');
     })
     .catch(error => {
       this.setState({ error: error.message, success: "" });
