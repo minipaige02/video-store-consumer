@@ -11,7 +11,20 @@ class Customers extends React.Component {
 
   listCustomers = () => {
     return (this.props.customers.map((customerObj, i) => {
-      return <Customer key={i} {...customerObj} currCustomerCallback={this.props.currCustomerCallback}/>
+      if (this.props.custDetails) {
+        if (this.props.custDetails === customerObj.id) {
+          const rentals = this.props.allRentals;
+          const checkedOut = rentals.filter((rental) => {
+            return rental.customer_id === customerObj.id
+          });
+          console.log(checkedOut)
+          return <Customer key={i} {...customerObj} checkedOut={checkedOut} detailsDisplay={true} currCustomerCallback={this.props.currCustomerCallback}/>
+        } else {
+          return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback}/>
+        }
+      } else {
+        return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback}/>
+      }
     }));
   }
 
@@ -22,10 +35,11 @@ class Customers extends React.Component {
         <thead className="table-header-row">
           <tr>
             <th></th>
+            <th></th>
             <th>Id</th>
             <th>Name</th>
             <th>Account Credit</th>
-            <th># Movies checked out</th>
+            <th># Checked Out</th>
           </tr>
         </thead>
         
@@ -40,6 +54,9 @@ class Customers extends React.Component {
 
 Customers.propTypes = {
   customers: PropTypes.array.isRequired,
+  custDetails: PropTypes.number,
+  allRentals: PropTypes.array,
+  setCustDetailsCallback: PropTypes.func.isRequired,
   currCustomerCallback: PropTypes.func,
   eraseAlertsCallback: PropTypes.func,
 }

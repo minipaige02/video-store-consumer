@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Customers from './components/Customers';
@@ -32,6 +31,7 @@ class App extends Component {
       success: "",
       currMovie: "",
       currCustomer: "",
+      custDetails: 4,
     }
   }
 
@@ -70,6 +70,10 @@ class App extends Component {
     });
 
     this.setState({currMovie});
+  }
+
+  setCustDetails = (customerId) => {
+    this.setState({custDetails: customerId})
   }
 
   deselect = (item) => {
@@ -131,6 +135,8 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state.custDetails)
+
     const iconUrl = "https://www.pngrepo.com/png/284024/170/vhs.png"
     
     return (
@@ -179,7 +185,7 @@ class App extends Component {
               <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/customers">
-              <Customers customers={this.state.customers} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
+              <Customers customers={this.state.customers} allRentals={this.state.allRentals} custDetails={this.state.custDetails} setCustDetailsCallback={this.setCustDetails} currCustomerCallback={this.setCurrCustomer} eraseAlertsCallback={this.eraseAlerts}/>
             </Route>
             <Route path="/rentals">
               <Rentals allRentals={this.state.allRentals} overdueRentals={this.state.overdueRentals} checkInCallback={this.checkIn} eraseAlertsCallback={this.eraseAlerts}/>
