@@ -145,7 +145,7 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.custDetails)
+    // console.log(this.state.custDetails);
 
     const iconUrl = "https://www.pngrepo.com/png/284024/170/vhs.png"
     

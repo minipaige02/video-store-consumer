@@ -10,10 +10,16 @@ class Rentals extends React.Component {
     this.props.refreshStatesCallback();
   }
 
+  isOverdue = (due_date) => {
+    const today = new Date();
+    return (formatDate(today) > formatDate(due_date));
+  }
+
   showRentals = (rentalObjs, checkInCallback) => {
     return ( rentalObjs.map((rental, i) => {
+      
       return (
-      <tr key={i}>
+      <tr key={i} className={ this.isOverdue(rental.due_date) ? "overdue":null}>
         <td>{rental.title}</td>
         <td>{rental.name}</td>
         <td>{formatDate(rental.checkout_date)}</td>
