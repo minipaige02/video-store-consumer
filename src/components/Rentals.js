@@ -2,18 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatDate } from './Helpers';
 
-
-
 class Rentals extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: "allRentals",
+    }
+  }
 
   componentDidMount() {
     this.props.refreshStatesCallback();
   }
 
+  isOverdue = (due_date) => {
+    const today = new Date();
+    return (formatDate(today) > formatDate(due_date));
+  }
+
   showRentals = (rentalObjs, checkInCallback) => {
     return ( rentalObjs.map((rental, i) => {
+      
       return (
-      <tr key={i}>
+      <tr key={i} className={ this.isOverdue(rental.due_date) ? "overdue":null}>
         <td>{rental.title}</td>
         <td>{rental.name}</td>
         <td>{formatDate(rental.checkout_date)}</td>
@@ -24,10 +34,37 @@ class Rentals extends React.Component {
     );
   }
 
+  showCorrectTable = () => {
+    if (this.state.active === "allRentals") {
+      return (this.showRentals(this.props.allRentals, this.props.checkInCallback));
+    } else if (this.state.active === "overdueRentals") {
+      return (this.showRentals(this.props.overdueRentals, this.props.checkInCallback));
+    }
+  }
+
+  chooseTable = (event) => {
+    this.setState({ active: event.target.id})
+  }
+
+  
+
   render() {
+    const currTable = this.state.active;
+
+    const activeTab = "nav-link active";
+    const inactiveTab = "nav-link";
+
     return(
       <section>
-          <h3>ALL RENTALS(red=overdue) *or* OVERDUES </h3>
+        <ul className="nav nav-tabs">
+          <li className="nav-item">
+            <h3 id="allRentals" className={ currTable === "allRentals"? activeTab:inactiveTab} onClick={this.chooseTable}>All Rentals</h3>
+          </li>
+          <li className="nav-item">
+            <h3 id="overdueRentals" className={currTable ==="overdueRentals"? activeTab:inactiveTab} onClick={this.chooseTable}>Overdue Rentals</h3>
+          </li>
+        </ul>
+
           <table className="table table-striped">
             <thead className="table-header-row">
               <tr>
@@ -40,14 +77,10 @@ class Rentals extends React.Component {
             </thead>
   
             <tbody>
-              <h3>ALL RENTALS</h3>
-              {this.showRentals(this.props.allRentals, this.props.checkInCallback)}
-              
-              <h3>OVERDUES</h3>
-              {this.showRentals(this.props.overdueRentals, this.props.checkInCallback)}
+              {this.showCorrectTable()}
             </tbody>
           </table>
-        </section>
+      </section>
 
     );
   }
@@ -55,7 +88,9 @@ class Rentals extends React.Component {
 
 Rentals.propTypes = {
   overdueRentals: PropTypes.array.isRequired,
+  allRentals: PropTypes.array.isRequired,  
   refreshStatesCallback: PropTypes.func.isRequired,
+  checkInCallback: PropTypes.func.isRequired,
 }
 
 export default Rentals;
