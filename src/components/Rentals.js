@@ -5,13 +5,12 @@ import { formatDate } from './Helpers';
 
 
 class Rentals extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     currList: props.allRentals,
-  //   }
-  // }
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: "allRentals",
+    }
+  }
 
   componentDidMount() {
     this.props.refreshStatesCallback();
@@ -38,27 +37,28 @@ class Rentals extends React.Component {
   }
 
   showCorrectTable = () => {
-    if (true) {
+    if (this.state.active === "allRentals") {
       return (this.showRentals(this.props.allRentals, this.props.checkInCallback));
-    } else if (false) {
+    } else if (this.state.active === "overdueRentals") {
       return (this.showRentals(this.props.overdueRentals, this.props.checkInCallback));
     }
   }
 
-  wassup = () => {
-    console.log(`wassup`);
-    
+  chooseTable = (event) => {
+    this.setState({ active: event.target.id})
   }
 
   render() {
+    const currTable = this.state.active;
+
     return(
       <section>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <a className="nav-link active" value="allRentals" onClick={this.wassup}>All Rentals</a>
+            <h3 id="allRentals" className={(currTable === this.id) ? "nav-link active" : "nav-link"} onClick={this.chooseTable}>All Rentals</h3>
           </li>
           <li className="nav-item">
-            <a className="nav-link" value="overdueRentals" onClick={this.wassup}>Overdue Rentals</a>
+            <h3 id="overdueRentals" className={(currTable === this.id) ? "nav-link active" : "nav-link"} onClick={this.chooseTable}>Overdue Rentals</h3>
           </li>
         </ul>
 
@@ -85,7 +85,9 @@ class Rentals extends React.Component {
 
 Rentals.propTypes = {
   overdueRentals: PropTypes.array.isRequired,
+  allRentals: PropTypes.array.isRequired,  
   refreshStatesCallback: PropTypes.func.isRequired,
+  checkInCallback: PropTypes.func.isRequired,
 }
 
 export default Rentals;
