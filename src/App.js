@@ -7,6 +7,7 @@ import Library from './components/Library';
 import Home from './components/Home';
 import Alert from './components/Alert';
 import Rentals from './components/Rentals';
+import {getCustomerNameFromId, BASE_URL} from './components/Helpers';
 import axios from 'axios';
 
 
@@ -18,7 +19,7 @@ import {
 } from "react-router-dom";
 
 
-const BASE_URL = 'http://localhost:2999/';
+
 
 class App extends Component {
   constructor() {
@@ -89,10 +90,10 @@ class App extends Component {
   }
 
   addToLibrary = (movieObj) => {
-    axios.post(`http://localhost:2999/movies`, movieObj)
+    axios.post(`${BASE_URL}movies`, movieObj)
     .then(response => {
       // send new api call to backend to get latest data
-      this.getFromBackend('http://localhost:2999/movies', 'inventory', `${movieObj.title} added to inventory!`);
+      this.getFromBackend(`${BASE_URL}movies`, 'inventory', `${movieObj.title} added to inventory!`);
     })
     .catch(error => {
       this.setState({ error: error.response.data.railsErrorMsg, success: "" })
@@ -119,11 +120,11 @@ class App extends Component {
       const custName = this.state.currCustomer.name
       let dueDate = new Date();
       dueDate.setDate(new Date().getDate()+7);
-      axios.post(`http://localhost:2999/rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
+      axios.post(`${BASE_URL}rentals/${movieTitle}/check-out`, {customer_id: custId, due_date: dueDate} )
         .then(response => {
           // send new api call to backend to get latest data
-          this.getFromBackend('http://localhost:2999/customers', 'customers', `${movieTitle} successfully checked-out to ${custName}!`);
-          this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals');
+          this.getFromBackend(`${BASE_URL}customers`, 'customers', `${movieTitle} successfully checked-out to ${custName}!`);
+          this.getFromBackend(`${BASE_URL}rentals`, 'allRentals');
           this.setState({ currCustomer: "", currMovie: "" })
         })
         .catch(error => {
@@ -135,12 +136,13 @@ class App extends Component {
   }
 
   checkIn = (customer_id, title) => {
+    const customerName = getCustomerNameFromId(customer_id, this.state.customers);
 
-    axios.post(`http://localhost:2999/rentals/${title}/return`, {customer_id: customer_id})
+    axios.post(`${BASE_URL}rentals/${title}/return`, {customer_id: customer_id})
     .then( response => {
       // refresh both rentals lists
-      this.getFromBackend(`http://localhost:2999/rentals`, 'allRentals', `${title} successfully returned by customer #${customer_id}`);
-      this.getFromBackend(`http://localhost:2999/rentals/overdue`, 'overdueRentals');
+      this.getFromBackend(`${BASE_URL}rentals`, 'allRentals', `${title} successfully returned by customer ${customerName}`);
+      this.getFromBackend(`${BASE_URL}rentals/overdue`, 'overdueRentals');
     })
     .catch(error => {
       this.setState({ error: error.message, success: "" });

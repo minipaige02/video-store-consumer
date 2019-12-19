@@ -1,3 +1,5 @@
+export const BASE_URL = 'http://localhost:2999/';
+
 export const formatDate = (arg_date) => {
   const date = new Date(arg_date);
   const month = date.toLocaleString('default', { month: 'long' });

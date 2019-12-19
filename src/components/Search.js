@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Movie from './Movie'
+import { BASE_URL } from './Helpers';
 
 
 class Search extends React.Component {
@@ -21,7 +22,7 @@ class Search extends React.Component {
   sendAPI = (event) => {
     event.preventDefault();
 
-    axios.get(`http://localhost:2999/movies?query=${this.state.searchTerm}`)
+    axios.get(`${BASE_URL}movies?query=${this.state.searchTerm}`)
     .then(response => {
       this.setState({ searchTerm: "", searchResults: response.data });
     })
