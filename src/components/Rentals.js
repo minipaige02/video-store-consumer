@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatDate } from './Helpers';
 
-
-
 class Rentals extends React.Component {
   constructor(props) {
     super(props);
@@ -48,17 +46,22 @@ class Rentals extends React.Component {
     this.setState({ active: event.target.id})
   }
 
+  
+
   render() {
     const currTable = this.state.active;
+
+    const activeTab = "nav-link active";
+    const inactiveTab = "nav-link";
 
     return(
       <section>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <h3 id="allRentals" className={(currTable === this.id) ? "nav-link active" : "nav-link"} onClick={this.chooseTable}>All Rentals</h3>
+            <h3 id="allRentals" className={ currTable === "allRentals"? activeTab:inactiveTab} onClick={this.chooseTable}>All Rentals</h3>
           </li>
           <li className="nav-item">
-            <h3 id="overdueRentals" className={(currTable === this.id) ? "nav-link active" : "nav-link"} onClick={this.chooseTable}>Overdue Rentals</h3>
+            <h3 id="overdueRentals" className={currTable ==="overdueRentals"? activeTab:inactiveTab} onClick={this.chooseTable}>Overdue Rentals</h3>
           </li>
         </ul>
 
