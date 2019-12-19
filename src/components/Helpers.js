@@ -6,3 +6,8 @@ export const formatDate = (arg_date) => {
 
   return `${month} ${day}, ${year}`
 }
+
+export const getCustomerNameFromId = (id, customerObjs) => {
+  const customer = customerObjs.find( obj => obj.id === id);
+  return customer.name;
+}
