@@ -13,22 +13,21 @@ class Customers extends React.Component {
     this.props.deselectCallback("custDetails");
   }
 
-
   listCustomers = () => {
     return (this.props.customers.map((customerObj, i) => {
+      let checkedOut = [];
+      let display = false;
+
       if (this.props.custDetails) {
         if (this.props.custDetails === customerObj.id) {
           const rentals = this.props.allRentals;
-          const checkedOut = rentals.filter((rental) => {
+          checkedOut = rentals.filter((rental) => {
             return rental.customer_id === customerObj.id
           });
-          return <Customer key={i} {...customerObj} checkedOut={checkedOut} detailsDisplay={true} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
-        } else {
-          return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
+          display = true;
         }
-      } else {
-        return <Customer key={i} {...customerObj} detailsDisplay={false} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
       }
+      return <Customer key={i} {...customerObj} checkedOut={checkedOut} detailsDisplay={display} currCustomerCallback={this.props.currCustomerCallback} setCustDetails={this.props.setCustDetailsCallback}/>
     }));
   }
 
