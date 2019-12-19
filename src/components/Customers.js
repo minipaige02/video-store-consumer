@@ -39,7 +39,7 @@ class Customers extends React.Component {
           <tr>
             <th></th>
             <th></th>
-            <th>Id</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Account Credit</th>
             <th># Checked Out</th>
