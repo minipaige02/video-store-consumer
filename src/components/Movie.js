@@ -8,7 +8,7 @@ const Movie = (props) => {
   
   return(
     <tr>
-      <td><button value={props.id} name={props.title} onClick={props.selectMovieCallback} className="btn btn-info">{props.buttonText}</button></td>
+      <td><button value={props.id} name={props.title} onClick={props.selectMovieCallback} className="btn btn-primary">{props.buttonText}</button></td>
       <td><img src={props.image_url} alt={props.title} /></td>
       <td>{props.title}</td>
       <td>{formatDate(props.release_date)}</td>

@@ -2,3 +2,19 @@
   display: grid;
   grid-template-columns: 1fr 1fr 5fr 5fr;
 }
+
+.btn-primary {
+  background-color: #1030AD;
+}
+
+.btn-secondary {
+  background: #FFCC00;
+  border: none;
+  color: black;
+}
+
+.btn-secondary:hover {
+  background: goldenrod;
+  border: none;
+  color: black;
+}

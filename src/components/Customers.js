@@ -33,14 +33,15 @@ class Customers extends React.Component {
 
   render() {
     return(
-    <section>
+    <section className="component-container" >
+      <h3 className="primary-color">Customer List</h3>
       <table className="table table-striped">
         <thead className="table-header-row">
           <tr>
             <th></th>
             <th></th>
             <th>ID</th>
-            <th>Name</th>
+            <th className="customer-name">Name</th>
             <th>Account Credit</th>
             <th># Checked Out</th>
           </tr>

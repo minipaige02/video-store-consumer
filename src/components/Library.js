@@ -30,8 +30,8 @@ class Library extends React.Component {
   displayMovies = (inventory, setCurrMovieCallback) => {
     if (inventory.length > 0) {
       return (
-        <section>
-          <h3>Rental Library</h3>
+        <section className="component-container">
+          <h3 className="primary-color">Rental Library</h3>
           <table className="table table-striped">
             <thead className="table-header-row">
               <tr>

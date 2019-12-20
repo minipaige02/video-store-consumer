@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Movie from './Movie'
+import './Search.css'
 import { BASE_URL } from './Helpers';
 
 
@@ -48,20 +49,20 @@ class Search extends React.Component {
     });
     
   return(
-    <section>
+    <section className="component-container" >
       <form onSubmit={this.sendAPI} className="input-group input-group-lg">
         <input type="text" value={this.state.searchTerm} placeholder="Search The Movie Database" onChange={this.getInput} className="form-control" />
-        <input className="input-group-text" type="submit"/>
+        <input className="input-group-text submit-button" type="submit"/>
       </form>
 
-      <table className="table table-striped">
+      <table className="table table-striped search-table">
         <thead className="table-header-row">
           <tr>
-            <th className=""></th>
-            <th ></th>
-            <th >Title</th>
-            <th >Release Date</th>
-            <th >Overview</th>
+            <th></th>
+            <th></th>
+            <th>Title</th>
+            <th>Release Date</th>
+            <th>Overview</th>
           </tr>
         </thead>
 

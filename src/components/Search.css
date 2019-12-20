@@ -1,0 +1,14 @@
+.submit-button {
+  min-width: 80px;
+  text-align: center;
+  background-color: #1030AD;
+  color: white;
+}
+
+.input-group {
+  margin-right: 10px;
+}
+
+.search-table {
+  margin-top: 10px;
+}

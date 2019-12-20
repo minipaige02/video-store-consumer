@@ -43,8 +43,10 @@
 }
 
 .rental-select-container {
+  margin-left: 30px;
   display: grid;
   grid-template-columns: 3fr 1fr;
+  font-size: 1.5rem;
 }
 
 .select-movie {
@@ -68,6 +70,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#rental-button {
+  font-size: 2rem;
 }
 
 
@@ -98,3 +104,13 @@ ul {
 .overdue {
   color:red;
 }
+
+.component-container {
+  margin: 30px;
+  margin-top: 0;
+}
+
+.search-bar {
+  grid-area: searchbar;
+}
+

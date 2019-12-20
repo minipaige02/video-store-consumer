@@ -28,7 +28,7 @@ class Rentals extends React.Component {
         <td>{rental.name}</td>
         <td>{formatDate(rental.checkout_date)}</td>
         <td>{formatDate(rental.due_date)}</td>
-        <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-info">Check In</button></td>
+        <td><button onClick={() => {checkInCallback(rental.customer_id, rental.title)}} className="btn btn-primary">Check In</button></td>
       </tr>)
     })
     );
@@ -55,7 +55,7 @@ class Rentals extends React.Component {
     const inactiveTab = "nav-link";
 
     return(
-      <section>
+      <section className="component-container">
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <h3 id="allRentals" className={ currTable === "allRentals"? activeTab:inactiveTab} onClick={this.chooseTable}>All Rentals</h3>

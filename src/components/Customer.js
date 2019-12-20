@@ -21,8 +21,8 @@ const Customer = ({id, name, registered_at, address, city, state, postal_code, p
   
     return(
         <tr>
-          <td><button value={id} name={name} onClick={()=>currCustomerCallback(id)} className="btn btn-info">Select</button></td>
-          <td><button value="details" name="details" className="btn btn-info" onClick={() => setCustDetails(id)}>-</button></td>
+          <td><button value={id} name={name} onClick={()=>currCustomerCallback(id)} className="btn btn-primary">Select</button></td>
+          <td><button value="details" name="details" className="btn btn-primary" onClick={() => setCustDetails(id)}>-</button></td>
           <td>{id}</td>
           <td className="customer-name">{name}
             <ul>
@@ -40,8 +40,8 @@ const Customer = ({id, name, registered_at, address, city, state, postal_code, p
   } else {
     return(
       <tr>
-        <td><button value={id} name={name} onClick={() => currCustomerCallback(id)} className="btn btn-info">Select</button></td>
-        <td><button value="details" name="details" className="btn btn-info" onClick={() => setCustDetails(id)}>+</button></td>
+        <td><button value={id} name={name} onClick={() => currCustomerCallback(id)} className="btn btn-primary">Select</button></td>
+        <td><button value="details" name="details" className="btn btn-primary" onClick={() => setCustDetails(id)}>+</button></td>
         <td>{id}</td>
         <td className="customer-name">{name}</td>
         <td>{showDollars(account_credit)}</td>

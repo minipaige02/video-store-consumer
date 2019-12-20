@@ -185,7 +185,7 @@ class App extends Component {
             </div>
 
             <div className="rental-button__container">
-            {this.state.currMovie && this.state.currCustomer ? <button type="button" className="btn btn-success rental-button" onClick={this.createRental}>Create Rental</button> : ""}
+            {this.state.currMovie && this.state.currCustomer ? <button type="button" id="rental-button" className="btn btn-primary" onClick={this.createRental}>Create Rental</button> : ""}
             </div>
           </section>
 
@@ -194,7 +194,7 @@ class App extends Component {
 
           <Switch>
             <Route path="/search">
-              <Search addToLibraryCallback={this.addToLibrary} refreshStatesCallback={this.refreshStates}/>
+              <Search className="search-bar" addToLibraryCallback={this.addToLibrary} refreshStatesCallback={this.refreshStates}/>
             </Route>
             <Route path="/library">
               <Library inventory={this.state.inventory} setCurrMovieCallback={this.setCurrMovie} refreshStatesCallback={this.refreshStates}/>
