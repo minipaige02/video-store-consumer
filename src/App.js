@@ -128,7 +128,7 @@ class App extends Component {
           this.setState({ currCustomer: "", currMovie: "" })
         })
         .catch(error => {
-          this.setState({ error: error.message, success: "" })
+          this.setState({ error: error.response.data.railsErrorMsg, success: "" })
         })
     } else {
       this.setState({success: "", error: "Movie and customer must be selected to create rental."})
