@@ -16,7 +16,7 @@ class Rentals extends React.Component {
 
   isOverdue = (due_date) => {
     const today = new Date();
-    return (formatDate(today) > formatDate(due_date));
+    return (Date.parse(today) > Date.parse(due_date));
   }
 
   showRentals = (rentalObjs, checkInCallback) => {
